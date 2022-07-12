@@ -1,0 +1,139 @@
+<!--suppress ALL -->
+<div class="m-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <mat-card>
+                    <div class="row">
+                        <div class="col-md-5 w-100 col-auto" *ngIf="category !== undefined">
+                            <div class="row">
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Category:</mat-label>
+                                        <mat-select [(value)]="category" required (selectionChange)="changeCategory()">
+                                            <mat-option value="all">All</mat-option>
+                                            <mat-option *ngFor="let cate of linkCategories; let i = index"
+                                                        [value]="cate">
+                                                {{categories[i]}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 w-100 col-auto">
+                            <div class="row">
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Search</mat-label>
+                                        <input matInput placeholder="Search within results" id="typeahead-focus"
+                                               [disabled]="!listOfNames"
+                                               type="text"
+                                               [(ngModel)]="model"
+                                               [ngbTypeahead]="search"
+                                               (focus)="focus$.next($event.target['value'])"
+                                               (click)="click$.next($event.target['value'])"
+                                               (selectItem)="searchByName($event.item)"
+                                               (input)="searchByName($event.target['value'])"
+                                               #instance="ngbTypeahead">
+                                        <mat-icon matSuffix
+                                                  (click)="clickSearchIcon()">{{isSearch ? 'clear' : 'search'}}</mat-icon>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-auto w-100 d-flex align-items-center justify-content-center">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <span class="font-weight-bold">{{(index)}} products</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <mat-card class="mt-2">
+                    <div class="row">
+                        <div class="col-md-1 d-flex align-items-center">
+                            <div class="row d-flex justify-content-start ml-2">
+                                <span class="font-weight-bold">Order:</span>
+                            </div>
+                        </div>
+                        <div class="col-md-9 d-flex align-items-center justify-content-center" *ngIf="order">
+                            <div class="row">
+                                <!--suppress TypeScriptValidateTypes -->
+                                <div class="col-md-2 col-4 p-1" *ngFor="let orderType of shopOrderEnum | keyvalue">
+                                    <button class="w-100"
+                                            [color]="order === shopOrderEnum[orderType.key]? 'primary' : undefined"
+                                            mat-raised-button
+                                            (click)="changeOrder(orderType.key)">{{orderType.value}}</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center justify-content-end">
+                            <div class="row mr-2">
+                                <mat-button-toggle-group [value]="showType"
+                                                         (change)="changeShowType(showTypeGroup.value)"
+                                                         #showTypeGroup="matButtonToggleGroup">
+                                    <mat-button-toggle [value]="shopTypeEnum.GRID" aria-label="grid">
+                                        <mat-icon>grid_on</mat-icon>
+                                    </mat-button-toggle>
+                                    <mat-button-toggle [value]="shopTypeEnum.LIST" aria-label="list">
+                                        <mat-icon>list</mat-icon>
+                                    </mat-button-toggle>
+                                </mat-button-toggle-group>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+                <div class="row mt-2" *ngIf="listOfItemsOrdered">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12 d-flex align-items-center justify-content-end">
+                                <ngb-pagination class="d-flex justify-content-end"
+                                                [page]="pageIndex"
+                                                (pageChange)="changePage($event)"
+                                                [pageSize]="pageSize"
+                                                [ellipses]="true"
+                                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                                [collectionSize]="index">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="listOfItemsPageIndex">
+                            <div class="col-12" *ngIf="showType === 'list'">
+                                <ng-container *ngFor="let item of listOfItemsPageIndex">
+                                    <app-list-item [itemId]="item.id" class="row">
+                                    </app-list-item>
+                                </ng-container>
+                            </div>
+                            <div class="col-12" *ngIf="showType === 'grid'">
+                                <div class="row">
+                                    <ng-container *ngFor="let item of listOfItemsPageIndex">
+                                        <app-grid-item class="col-md-3 col-sm-4 p-2" [itemId]="item.id">
+                                        </app-grid-item>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 d-flex align-items-center justify-content-end">
+                                <ngb-pagination class="d-flex justify-content-end"
+                                                [page]="pageIndex"
+                                                (pageChange)="changePageBottom($event)"
+                                                [pageSize]="pageSize"
+                                                [ellipses]="true"
+                                                [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                                                [collectionSize]="index">
+                                </ngb-pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

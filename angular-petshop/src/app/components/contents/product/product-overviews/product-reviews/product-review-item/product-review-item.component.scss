@@ -1,0 +1,11 @@
+.popover-image {
+    max-width: 400px;
+}
+
+.popover-click {
+    cursor: pointer;
+}
+
+:host ::ng-deep .popover{
+    max-width:1000px !important;
+}

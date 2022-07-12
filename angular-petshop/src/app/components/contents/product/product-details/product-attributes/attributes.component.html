@@ -1,0 +1,28 @@
+<div class="row mt-2" *ngFor="let attribute of attributes; let i = index">
+    <div class="col-12">
+        <div class="row">
+                    <span>
+                        {{attribute.title}}*:
+                        <small class="text-muted">{{attribute.value}}</small>
+                    </span>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-sm-3 pl-0 btn-group btn-group-toggle" data-toggle="buttons"
+                 *ngFor="let option of attribute.options">
+                <div class="btn border p-1 btn-option d-flex justify-content-center"
+                     (click)="changeAttribute(option.text, option.optionId, i)"
+                     [ngClass]="{'btn-option-active':option.text === attribute.value}"
+                     placement="top" [ngbTooltip]="option.text">
+                    <input type="radio" [name]="attribute.title"
+                           [id]="option.optionId">
+                    <span class="font-weight-bold">
+                        <img *ngIf="option.image" class="w-100" [src]="option.image" [alt]="option.optionId">
+                        <ng-container *ngIf="!option.image">
+                            {{option.text}}
+                        </ng-container>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

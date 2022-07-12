@@ -1,0 +1,77 @@
+<hr>
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <span class="col-12 font-weight-bold align-items-center text-center">
+                <a href="javascript:void(0)"
+                   [routerLink]="[URL.SYMBOL + URL.PRODUCT,id]">
+                    {{name}}
+                </a>
+            </span>
+        </div>
+        <div class="row" *ngIf="!user">
+            <div class="col-12">
+                <div class="row">
+                    <h4 class="col-12 font-weight-bold align-items-center text-center">
+                        Write a review
+                    </h4>
+                </div>
+                <div class="row">
+                    <div class="col-12 align-items-center justify-content-center text-center">
+                        <small>
+                            <a href="javascript:void(0)" (click)="loginService.login()">Login to review</a>
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="user">
+            <div class="col-12" *ngIf="!review">
+                <app-write-review [id]="id" [name]="name" [user]="user"></app-write-review>
+            </div>
+            <div class="col-12" *ngIf="review">
+                <div class="row">
+                    <h4 class="col-12 font-weight-bold align-items-center text-center">
+                        Reviewed
+                    </h4>
+                </div>
+                <div class="row">
+                    <div class="col-12 font-weight-bold align-items-center text-center">
+                        <ng-container *ngFor="let ratingId of [1,2,3,4,5];index as i">
+                            <mat-icon>
+                                {{showIcon(i)}}
+                            </mat-icon>
+                        </ng-container>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 font-weight-bold align-items-center text-center">
+                        <span class="font-weight-bold">{{this.review.star}}/5</span>
+                    </div>
+                </div>
+                <div class="row" *ngIf="review.content">
+                    <span class="col-12 font-weight-bold align-items-center text-center">
+                        {{review.content}}
+                    </span>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3 col-md-2 col-3 imageItem" *ngFor="let image of review.images; let i = index">
+                        <div class="row">
+                            <div class="col-12">
+                                <div>
+                                    <ng-template #tipContent>
+                                        <img class="popover-image" [src]="image" [alt]="'popover_image_' + i">
+                                    </ng-template>
+                                    <img [id]="'image_'+i" [alt]="'image_'+i" [src]="image" class="w-100 popover-click"
+                                         placement="bottom"
+                                         [ngbPopover]="tipContent">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

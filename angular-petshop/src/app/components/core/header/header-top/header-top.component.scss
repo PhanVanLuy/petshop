@@ -1,0 +1,21 @@
+.cart-icon {
+    color: rgba(255,255,255,.5);
+}
+.header-cart {
+    position: relative;
+    display: inline-block;
+    float: right;
+}
+.cart-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    min-width: 350px;
+    max-height: 500px;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 100;
+}
+.header-cart:hover .cart-dropdown {display: block;}
+
+

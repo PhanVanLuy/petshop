@@ -1,0 +1,14 @@
+.service-title::after {
+    background-color: #414141;
+    bottom: 0;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.content-list a:hover {
+    color: #fff;
+    text-decoration: none;
+}

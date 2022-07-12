@@ -1,0 +1,184 @@
+<div class="m-5" *ngIf="(count | async) === 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 align-items-center justify-content-start text-center">
+                <h5 class="font-weight-bold">Your Cart Is Currently Empty</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 align-items-center justify-content-start text-center">
+                <button class="btn btn-secondary" [routerLink]="URL.SYMBOL + URL.SHOP_ALL">
+                    <span>SHOPPING <mat-icon>shopping_cart</mat-icon></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-5" *ngIf="(count | async) !== 0">
+    <div class="container">
+        <div class="row my-1">
+            <div class="col">
+                <div>
+                    <h3 class="font-weight-bold text-grey">CART</h3>
+                    <span>You have {{count | async}} products in Cart</span>
+                </div>
+            </div>
+            <div class="col-auto d-flex align-items-end">
+                <button class="btn btn-secondary" [routerLink]="URL.SYMBOL + URL.SHOP_ALL">
+                    SHOPPING
+                    <mat-icon>shopping_cart</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="row my-1">
+            <div class="col-12">
+                <table class="table table-responsive" id="cartTable">
+                    <thead class="bg-dark">
+                    <tr>
+                        <th class="text-center font-weight-bold text-white">REMOVE</th>
+                        <th class="text-center font-weight-bold text-white">IMAGE</th>
+                        <th class="text-center font-weight-bold text-white">PRODUCT</th>
+                        <th class="text-center font-weight-bold text-white">QUANTITY</th>
+                        <th class="text-center font-weight-bold text-white">PRICE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let product of products | async; index as i">
+                        <td class="text-center font-weight-bold text-dark">
+                            <a (click)="removeCart(product.id)">X</a>
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <a class="text-dark"
+                                   [routerLink]="[URL.SYMBOL + URL.PRODUCT,product.link]">
+                                    <img [src]="product.pic" class="mr-2 w-100" [alt]="product.link">
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a class="text-dark"
+                               [routerLink]="[URL.SYMBOL + URL.PRODUCT,product.link]">
+                                <h5 class="titleText">{{product.title}}</h5>
+                            </a>
+                            <h6>{{product.combinedValues.join(' - ')}}</h6>
+                            <span *ngIf="product.note">
+                                {{product.note}}
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <p>
+                                <button matBadge mat-button
+                                        (click)="updateQuantity(product.id,product.quantity)">{{product.quantity}}
+                                    <mat-icon inline="true">edit</mat-icon>
+                                </button>
+                            </p>
+                        </td>
+                        <td class="text-center">
+                            <p class="m-0">
+                                {{this.product?.currentPricing | currency: 'USD'}}</p>
+                            <ng-container *ngIf="this.product?.currentPricing !== this.product.pricing">
+                                <br>
+                                <s class="font-weight-light">{{this.product?.pricing | currency: 'USD'}}</s>
+                                <p class="bg-dark text-white m-0">
+                                    -{{1 - this.product?.currentPricing / this.product?.pricing | percent: '2.0-0'}}
+                                </p>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row my-1">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-md-8 col-sm-12">
+                        <div class="row my-2">
+                            <form [formGroup]="couponForm" (ngSubmit)="applyCoupon()">
+                                <small *ngIf="couponInput.invalid && (submitted)"
+                                       id="couponHelp" class="form-text text-danger">
+                                    <ng-container *ngIf="couponInput.errors?.required">
+                                        Coupon is required.
+                                    </ng-container>
+                                </small>
+                                <small *ngIf="!this.isSuccess && this.couponMessage" class="form-text text-danger">
+                                    {{this.couponMessage}}
+                                </small>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Coupon code"
+                                           formControlName="coupon">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-secondary" type="submit"
+                                                [disabled]="isLoading">
+                                            <ng-container *ngIf="isLoading">
+                                                <span class="spinner-border spinner-border-sm" role="status"
+                                                      aria-hidden="true"></span>
+                                                Loading...
+                                            </ng-container>
+                                            <ng-container *ngIf="!isLoading">
+                                                Apply coupon
+                                            </ng-container>
+                                        </button>
+                                    </div>
+                                </div>
+                                <p *ngIf="couponService.coupon | async" class="font-weight-bold text-info">
+                                    Applied coupon: {{(couponService.coupon |async).name}}
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-12">
+                        <div class="row my-2">
+                            <div class="card w-100">
+                                <div class="card-header font-weight-bold">
+                                    CART TOTAL
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="row justify-content-around">
+                                            <div class="col text-left font-weight-bold">
+                                                <span>Subtotal:</span>
+                                            </div>
+                                            <div class="col text-right">
+                                                <span>{{ totals | async | currency :'USD':'symbol':'1.2-2' }}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row justify-content-around">
+                                            <div class="col text-left">
+                                                <span class="font-weight-bold">Coupon:</span>
+                                                <ng-container *ngIf="coupon">
+                                                    <span>{{coupon.name}}</span>
+                                                </ng-container>
+                                            </div>
+                                            <div class="col text-right">
+                                                <span>-{{ couponDiscount | currency :'USD':'symbol':'1.2-2' }}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="row justify-content-around">
+                                            <div class="col text-left font-weight-bold">
+                                                <span>Total:</span>
+                                            </div>
+                                            <div class="col text-right font-weight-bold">
+                                                <span>{{ finalTotals | currency :'USD':'symbol':'1.2-2' }}</span>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row my-3 justify-content-end">
+                            <button class="btn btn-dark" [routerLink]="URL.SYMBOL + URL.CHECKOUT">
+                                PROCEED TO CHECKOUT
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

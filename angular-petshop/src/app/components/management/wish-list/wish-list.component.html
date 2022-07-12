@@ -1,0 +1,77 @@
+<div class="m-5" *ngIf="(count | async) === 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 align-items-center justify-content-start text-center">
+                <h5 class="font-weight-bold">Your Wish List Is Currently Empty</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 align-items-center justify-content-start text-center">
+                <button class="btn btn-secondary" [routerLink]="URL.SYMBOL + URL.SHOP_ALL">
+                    SHOPPING <mat-icon>shopping_cart</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="m-5" *ngIf="(count | async) !== 0">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div>
+                    <h3 class="font-weight-bold text-grey">WISH LIST</h3>
+                    <span>You have {{count | async}} products in Wish List</span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-responsive" id="wishTable">
+                    <thead class="bg-dark">
+                    <tr>
+                        <th class="text-center font-weight-bold text-white">REMOVE</th>
+                        <th class="text-center font-weight-bold text-white">IMAGE</th>
+                        <th class="text-center font-weight-bold text-white">PRODUCT</th>
+                        <th class="text-center font-weight-bold text-white">PRICE</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let product of products | async; index as i">
+                        <td class="text-center font-weight-bold text-dark">
+                            <a (click)="removeWish(product.id)">X</a>
+                        </td>
+                        <td class="text-center">
+                            <div>
+                                <a class="text-dark"
+                                   [routerLink]="[URL.SYMBOL + URL.PRODUCT,product.link]">
+                                    <img [src]="product.pic" class="mr-2 w-100" [alt]="product.link">
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a class="text-dark"
+                               [routerLink]="[URL.SYMBOL + URL.PRODUCT,product.link]">
+                                <h5 class="titleText">{{product.title}}</h5>
+                            </a>
+                        </td>
+                        <td class="text-center">
+                            <p class="m-0">
+                                {{this.product?.currentMin | currency: 'USD'}}
+                                - {{this.product?.currentMax | currency: 'USD' }}</p>
+                            <ng-container *ngIf="this.product?.currentMin !== this.product.min">
+                                <br>
+                                <s class="font-weight-light">{{this.product?.min | currency: 'USD'}}
+                                    - {{this.product?.max | currency: 'USD' }}</s>
+                                <p class="bg-dark text-white m-0">
+                                    -{{1 - this.product?.currentMin / this.product?.min | percent: '2.0-0'}}
+                                </p>
+                            </ng-container>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

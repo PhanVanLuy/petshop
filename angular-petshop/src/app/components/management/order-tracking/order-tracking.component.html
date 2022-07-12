@@ -1,0 +1,308 @@
+<ng-container *ngIf="!searchOrderTracking">
+    <div class="m-5" *ngIf="orderTracking">
+        <div class="container">
+            <div class="row m-1 my-2">
+                <div class="col-6 p-0">
+                    <a href="javascript:void(0)" [routerLink]="URL.SYMBOL + URL.ORDER_TRACKING">
+                        <mat-icon>keyboard_arrow_left</mat-icon>
+                        Back
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <h4 class="col-12 font-weight-bold text-uppercase align-items-center justify-content-start text-center">
+                            your order have been {{orderTracking.status | replace: '_' : ' '}}
+                        </h4>
+                        <h5 class="col-12 font-weight-bold align-items-center justify-content-start text-center">
+                            Your order number is: {{orderTracking.id}}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <mat-horizontal-stepper *ngIf="!isVertical" [linear]="false" labelPosition="bottom" class="w-100"
+                                            [selectedIndex]="getCurrentStatus()">
+                        <ng-container *ngFor="let item of ORDER_STATUS.ORDER_STATUS; index as i">
+                            <mat-step editable="false" #matStep
+                                      [completed]="matStep.interacted || i < getCurrentStatus()">
+                                <ng-template matStepLabel>
+                                    <span [ngClass]="{'font-weight-bold' : i === getCurrentStatus()}">
+                                        {{item | replace: '_' : ' '}}
+                                    </span>
+                                    <br>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 0 && i <= getCurrentStatus() && orderTracking.timestamps.received">
+                                        {{orderTracking.timestamps.received.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 1 && i <= getCurrentStatus() && orderTracking.timestamps.processing">
+                                        {{orderTracking.timestamps.processing.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 2 && i <= getCurrentStatus() && orderTracking.timestamps.preparingToShip">
+                                        {{orderTracking.timestamps.preparingToShip.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 3 && i <= getCurrentStatus() && orderTracking.timestamps.shipped">
+                                        {{orderTracking.timestamps.shipped.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 4 && i <= getCurrentStatus() && orderTracking.timestamps.delivered">
+                                        {{orderTracking.timestamps.delivered.toDate() | date: 'short'}}
+                                    </span>
+                                </ng-template>
+                            </mat-step>
+                        </ng-container>
+                    </mat-horizontal-stepper>
+                    <mat-vertical-stepper *ngIf="isVertical" [linear]="false" class="w-100"
+                                          [selectedIndex]="getCurrentStatus()">
+                        <ng-container *ngFor="let item of ORDER_STATUS.ORDER_STATUS; index as i">
+                            <mat-step editable="false" #matStep
+                                      [completed]="matStep.interacted || i < getCurrentStatus()">
+                                <ng-template matStepLabel>
+                                    <span [ngClass]="{'font-weight-bold' : i === getCurrentStatus()}">
+                                        {{item | replace: '_' : ' '}}
+                                    </span>
+                                    <br>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 0 && i <= getCurrentStatus() && orderTracking.timestamps.received">
+                                        {{orderTracking.timestamps.received.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 1 && i <= getCurrentStatus() && orderTracking.timestamps.processing">
+                                        {{orderTracking.timestamps.processing.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 2 && i <= getCurrentStatus() && orderTracking.timestamps.preparingToShip">
+                                        {{orderTracking.timestamps.preparingToShip.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 3 && i <= getCurrentStatus() && orderTracking.timestamps.shipped">
+                                        {{orderTracking.timestamps.shipped.toDate() | date: 'short'}}
+                                    </span>
+                                    <!--suppress TypeScriptUnresolvedFunction -->
+                                    <span
+                                        *ngIf="i === 4 && i <= getCurrentStatus() && orderTracking.timestamps.delivered">
+                                        {{orderTracking.timestamps.delivered.toDate() | date: 'short'}}
+                                    </span>
+                                </ng-template>
+                            </mat-step>
+                        </ng-container>
+                    </mat-vertical-stepper>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 my-1">
+                    <p class="m-0 font-weight-bold">Shipping Information:</p>
+                    <p class="m-0">{{orderTracking.information.firstName}} {{orderTracking.information.lastName}}</p>
+                    <p class="m-0">{{orderTracking.information.phone}} {{orderTracking.information.email}}</p>
+                    <p class="m-0">{{orderTracking.information.apartment}} {{orderTracking.information.company}}</p>
+                    <p class="m-0">{{orderTracking.information.address}} {{orderTracking.information.city}} {{orderTracking.information.postalCode}}</p>
+                    <p class="m-0">{{orderTracking.information.countryName}}</p>
+                </div>
+                <div class="col-sm-12 col-md-6 my-1">
+                    <p class="m-0 font-weight-bold">Billing Information:</p>
+                    <p class="m-0">{{orderTracking.billingInformation.firstName}} {{orderTracking.billingInformation.lastName}}</p>
+                    <p class="m-0">{{orderTracking.billingInformation.email}}</p>
+                </div>
+            </div>
+            <div class="row mt-3" *ngIf="orderTracking.orderItems.length !== 0">
+                <div class="col-12">
+                    <p class="m-0 font-weight-bold">Products Information:</p>
+                    <table mat-table [dataSource]="orderTracking.orderItems" class="w-100">
+                        <ng-container matColumnDef="product">
+                            <th mat-header-cell *matHeaderCellDef> Product</th>
+                            <td mat-cell *matCellDef="let element">
+                                <div class="row">
+                                    <span>
+                                        <a href="javascript:void(0)"
+                                           [routerLink]="[URL.SYMBOL + URL.PRODUCT,element.id]">
+                                            {{element.name}}
+                                        </a>
+                                    </span>
+                                </div>
+                                <div class="row">
+                                    <span>{{element.description}}</span>
+                                </div>
+                            </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="price">
+                            <th mat-header-cell *matHeaderCellDef> Price</th>
+                            <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="quantity">
+                            <th mat-header-cell *matHeaderCellDef> Quantity</th>
+                            <td mat-cell *matCellDef="let element"> {{element["quantity"]}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="subtotal">
+                            <th mat-header-cell *matHeaderCellDef> Subtotal</th>
+                            <td mat-cell *matCellDef="let element"> {{element.value * element["quantity"]}} </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="orderColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: orderColumns;"></tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row mt-3 justify-content-end" *ngIf="orderTracking.value !== 0">
+                <div class="col-sm-12 col-md-6">
+                    <div class="card-header font-weight-bold">
+                        Summary
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <div class="row justify-content-around">
+                                <div class="col text-left font-weight-bold">
+                                    <span>Total:</span>
+                                </div>
+                                <div class="col text-right font-weight-bold">
+                                    <span>{{ orderTracking.value | currency :'USD':'symbol':'1.2-2' }}</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row" *ngIf="orderTracking?.status === ORDER_STATUS.ORDER_STATUS[4]">
+                <div class="col-12">
+                    <ng-container *ngFor="let orderItem of orderTracking.orderItems">
+                        <app-review-status [id]="orderItem.id" [name]="orderItem.name"></app-review-status>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<ng-container *ngIf="searchOrderTracking">
+    <div class="m-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <h4 class="col-12 font-weight-bold text-uppercase">
+                                Track Order
+                            </h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <form [formGroup]="orderTrackingForm" (ngSubmit)="onSubmitOrderTracking()">
+                                <div class="row m-1">
+                                    <div class="col-12">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Order Id</mat-label>
+                                            <input matInput placeholder="Enter order id"
+                                                   formControlName="order" required maxlength="100">
+                                            <mat-error
+                                                *ngIf="orderTrackingForm.controls.order.invalid && (submitted || orderTrackingForm.controls.order.touched)">
+                                                <ng-container
+                                                    *ngIf="orderTrackingForm.controls.order.errors?.required">
+                                                    Order Id is required
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="orderTrackingForm.controls.order.errors?.pattern">
+                                                    Invalid Order Id Format
+                                                </ng-container>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row m-1">
+                                    <div class="col-12">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Email</mat-label>
+                                            <input matInput placeholder="Enter email address"
+                                                   formControlName="email" required maxlength="100">
+                                            <mat-error
+                                                *ngIf="orderTrackingForm.controls.email.invalid && (submitted || orderTrackingForm.controls.email.touched)">
+                                                <ng-container
+                                                    *ngIf="orderTrackingForm.controls.email.errors?.required">
+                                                    Email is required
+                                                </ng-container>
+                                                <ng-container
+                                                    *ngIf="orderTrackingForm.controls.email.errors?.pattern">
+                                                    Invalid email format
+                                                </ng-container>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row m-1 my-2">
+                                    <div class="col-6">
+                                        <button class="btn btn-dark" type="submit">
+                                            <mat-icon>search</mat-icon>
+                                            Track Order
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row m-1 my-2" *ngIf="searchNotFound">
+                                    <div class="col-12">
+                                        <mat-error>
+                                            {{searchNotFound}}
+                                        </mat-error>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-12">
+                                    <hr class="w-100 d-md-none">
+                                    <div class="row">
+                                        <h4 class="col-12 font-weight-bold text-uppercase">
+                                            Orders List
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="!(authService.user | async)">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <small>
+                                                <a href="javascript:void(0)" (click)="loginService.login()">Login</a>
+                                                to see orders list
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngIf="(authService.user | async)">
+                                <div class="col-12">
+                                    <div class="row">
+                                        <div class="col-12" *ngIf="ordersByEmail | async">
+                                            <p *ngFor="let order of ordersByEmail | async">
+                                                <a href="javascript:void(0)"
+                                                   [routerLink]="URL.SYMBOL + URL.ORDER_TRACKING + URL.SYMBOL + order">{{order}}</a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-container>

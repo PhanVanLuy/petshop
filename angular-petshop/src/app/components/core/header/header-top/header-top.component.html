@@ -1,0 +1,178 @@
+<div class="bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" [routerLink]="URL.INDEX">
+                        <img [src]="ASSETS.LOGO" alt="store4pet logo">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navBarHeader"
+                            aria-controls="navBarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse justify-content-lg-center" id="navBarHeader">
+                        <ul class="navbar-nav d-flex justify-content-between">
+                            <li class="nav-item m-1 p-1">
+                                <a class="nav-link font-weight-bold" [routerLink]="URL.INDEX"
+                                   [routerLinkActiveOptions]="{ exact: true }"
+                                   routerLinkActive="active">{{TITLE.INDEX}}</a>
+                            </li>
+
+                            <li class="nav-item m-1 p-1 dropdown" routerLinkActive="active">
+                                <a class="nav-link dropdown-toggle font-weight-bold" id="shopDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{TITLE.SHOP}}</a>
+                                <div class="dropdown-menu" aria-labelledby="shopDropdown">
+                                    <a class="dropdown-item" [routerLink]="URL.SHOP_ALL"
+                                       [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">
+                                        {{TITLE.SHOP_NOW}}
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" *ngFor="let category of categories; let idx = index"
+                                       [routerLink]="URL.SHOP + URL.SYMBOL + linkCategories[idx]" routerLinkActive="active">
+                                        {{category}}
+                                    </a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item m-1 p-1 dropdown" routerLinkActive="active">
+                                <a class="nav-link dropdown-toggle font-weight-bold" id="accountDropdown" role="button"
+                                   data-toggle="dropdown" aria-haspopup="true"
+                                   aria-expanded="false">Account</a>
+                                <div class="dropdown-menu" aria-labelledby="accountDropdown">
+
+                                    <div *ngIf="auth.user | async; then authenticated else guest">
+                                    </div>
+                                    <ng-template #guest>
+                                        <a class="dropdown-item" (click)="loginService.login()">
+                                            {{TITLE.LOGIN}}
+                                        </a>
+                                    </ng-template>
+                                    <ng-template #authenticated>
+                                        <a class="dropdown-item" [routerLink]="URL.PROFILE" routerLinkActive="active">
+                                            {{TITLE.PROFILE}}
+                                        </a>
+                                        <a class="dropdown-item" (click)="auth.signOut()">
+                                            {{TITLE.LOGOUT}}
+                                        </a>
+                                    </ng-template>
+
+                                    <a class="dropdown-item" [routerLink]="URL.HISTORY" routerLinkActive="active">
+                                        {{TITLE.HISTORY}}
+                                    </a>
+                                    <a class="dropdown-item" [routerLink]="URL.CART" routerLinkActive="active">
+                                        {{TITLE.CART}}
+                                    </a>
+                                    <a class="dropdown-item" [routerLink]="URL.CHECKOUT" routerLinkActive="active">
+                                        {{TITLE.CHECKOUT}}
+                                    </a>
+                                    <a class="dropdown-item" [routerLink]="URL.WISH_LIST" routerLinkActive="active">
+                                        {{TITLE.WISH_LIST}}
+                                    </a>
+                                    <a class="dropdown-item" [routerLink]="URL.REFUND" routerLinkActive="active">
+                                        {{TITLE.REFUND}}
+                                    </a>
+                                    <a class="dropdown-item" [routerLink]="URL.ORDER_TRACKING"
+                                       routerLinkActive="active">
+                                        {{TITLE.ORDER_TRACKING}}
+                                    </a>
+                                </div>
+                            </li>
+
+<!--                            <li class="nav-item m-1 p-1">-->
+<!--                                <a class="nav-link font-weight-bold" [routerLink]="URL.BLOG" routerLinkActive="active">-->
+<!--                                    {{TITLE.BLOG}}-->
+<!--                                </a>-->
+<!--                            </li>-->
+                            <li class="nav-item m-1 p-1">
+                                <a class="nav-link font-weight-bold" [routerLink]="URL.CONTACT"
+                                   routerLinkActive="active">
+                                    {{TITLE.CONTACT}}
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <div class="col-auto d-flex align-items-center">
+                <div class="header-cart" (mouseover)="cartHeader=true">
+                    <a (click)="cartHeader = false;" [routerLink]="URL.CART" class="cart-icon">
+                        <mat-icon [matBadge]="(count | async)+''" matBadgeColor="primary">shopping_cart</mat-icon>
+                    </a>
+
+                    <div class="cart-dropdown p-2 rounded overflow-auto" *ngIf="cartHeader">
+                        <div class="col">
+                            <ng-container>
+                                <div class="row" *ngFor="let product of products | async">
+                                    <div class="col-4">
+                                        <a (click)="cartHeader = false;" class="text-dark"
+                                           [routerLink]="[URL.SYMBOL + URL.PRODUCT,product.link]">
+                                            <img [src]="product.pic" class="w-100" [alt]="product.id">
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <a (click)="cartHeader = false;" class="text-dark"
+                                               [routerLink]="[URL.SYMBOL + URL.PRODUCT,product.link]">
+                                                <h5 class="titleText">{{product.title}}</h5>
+                                            </a>
+                                        </div>
+                                        <div class="row">
+                                            <h6>{{product.combinedValues.join(' - ')}}</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-auto d-flex align-items-center pl-0">
+                                                <p class="m-0">
+                                                    {{product.currentPricing | currency: 'USD'}}
+                                                    x {{product.quantity}}
+                                                </p>
+                                            </div>
+                                            <div *ngIf="product.currentPricing !== product.pricing"
+                                                 class="col-auto d-flex align-items-center pl-0">
+                                                <s class="font-weight-light">
+                                                    {{product.currentPricing | currency: 'USD'}}
+                                                </s>
+                                                <p class="bg-dark text-white m-0 ml-1">
+                                                    -{{1 - product.currentPricing / product.pricing | percent: '2.0-0'}}
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-2">
+                                        <a (click)="removeCart(product.id)" class="text-dark">
+                                            <mat-icon>delete</mat-icon>
+                                        </a>
+                                    </div>
+                                </div>
+                                <hr>
+                            </ng-container>
+                            <div class="row justify-content-around">
+                                <div class="col text-left">
+                                    <h4>Total:</h4>
+                                </div>
+                                <div class="col text-right">
+                                    <h4>{{ totals | async | currency :'USD':'symbol':'1.2-2' }}</h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col d-flex justify-content-center">
+                                    <button (click)="cartHeader = false;" type="button"
+                                            class="btn btn-dark w-100 cart-button" [routerLink]="URL.CART">
+                                        {{TITLE.CART}}
+                                    </button>
+                                </div>
+                                <div class="col d-flex justify-content-center">
+                                    <button (click)="cartHeader = false;" type="button"
+                                            class="btn btn-dark w-100 cart-button" [routerLink]="URL.CHECKOUT">
+                                        {{TITLE.CHECKOUT}}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

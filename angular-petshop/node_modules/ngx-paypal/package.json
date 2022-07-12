@@ -1,0 +1,36 @@
+{
+  "name": "ngx-paypal",
+  "version": "5.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Enngage/ngx-paypal"
+  },
+  "author": "richard sustek",
+  "description": "Paypal integration for Angular",
+  "keywords": [
+    "Paypal",
+    "Angular paypal",
+    "Paypal integration angular",
+    "Ngx paypal",
+    "Paypal SDK",
+    "Paypal javascript"
+  ],
+  "private": false,
+  "peerDependencies": {
+    "@angular/common": "^8.0.0",
+    "@angular/core": "^8.0.0"
+  },
+  "main": "bundles/ngx-paypal.umd.js",
+  "module": "fesm5/ngx-paypal.js",
+  "es2015": "fesm2015/ngx-paypal.js",
+  "esm5": "esm5/ngx-paypal.js",
+  "esm2015": "esm2015/ngx-paypal.js",
+  "fesm5": "fesm5/ngx-paypal.js",
+  "fesm2015": "fesm2015/ngx-paypal.js",
+  "typings": "ngx-paypal.d.ts",
+  "metadata": "ngx-paypal.metadata.json",
+  "sideEffects": false,
+  "dependencies": {
+    "tslib": "^1.9.0"
+  }
+}

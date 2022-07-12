@@ -1,0 +1,23 @@
+<div class="m-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 d-flex justify-content-sm-center">
+                <h3 class="font-weight-bold">OUR PARTNERS</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <owl-carousel
+                    [options]="options"
+                    [items]="images"
+                    [carouselClasses]="['owl-theme', 'row', 'sliding']">
+                    <div class="item" *ngFor="let image of images;let i = index">
+                        <div>
+                            <img [src]="image" alt="image carousel" class="w-100"/>
+                        </div>
+                    </div>
+                </owl-carousel>
+            </div>
+        </div>
+    </div>
+</div>

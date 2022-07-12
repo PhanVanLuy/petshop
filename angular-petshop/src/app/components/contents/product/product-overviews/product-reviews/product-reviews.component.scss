@@ -1,0 +1,18 @@
+:host ::ng-deep .pagination a.page-link {
+    font-weight: 700 !important;
+}
+
+:host ::ng-deep .pagination .page-item .page-link {
+    color: #343a40;
+    background-color: white;
+}
+
+:host ::ng-deep .pagination .page-item.active .page-link {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+:host ::ng-deep .pagination .page-item.disabled .page-link {
+    color: #aaa;
+}

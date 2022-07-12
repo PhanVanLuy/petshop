@@ -1,0 +1,27 @@
+<breadcrumb #parent>
+    <div class="container-breadcrumb">
+        <div class="container">
+            <div class="col">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" *ngIf="parent.breadcrumbs && parent.breadcrumbs.length !== 0">
+                            <a class="text-dark" [routerLink]="URL.INDEX">
+                                <mat-icon>home</mat-icon>
+                            </a>
+                        </li>
+                        <ng-container *ngFor="let route of parent.breadcrumbs">
+                            <li *ngIf="!route.terminal" class="breadcrumb-item">
+                                <a class="text-dark"
+                                   [routerLink]="[route.url]">{{ route.displayName }}</a>
+                            </li>
+                            <li *ngIf="route.terminal" class="breadcrumb-item active text-dark" aria-current="page">
+                                {{ route.displayName }}
+                            </li>
+                        </ng-container>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</breadcrumb>
+

@@ -1,0 +1,38 @@
+:host ::ng-deep button.mat-primary {
+    background-color: #343a40 !important;
+}
+
+:host ::ng-deep .mat-button-toggle-checked {
+    background-color: #343a40 !important;
+    color: white;
+}
+
+:host ::ng-deep [id^="ngb-typeahead-"] {
+    max-width: 60vw !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+:host ::ng-deep .mat-form-field-wrapper {
+    padding-bottom: unset;
+}
+
+:host ::ng-deep .pagination a.page-link {
+    font-weight: 700 !important;
+}
+
+:host ::ng-deep .pagination .page-item .page-link {
+    color: #343a40;
+    background-color: white;
+}
+
+:host ::ng-deep .pagination .page-item.active .page-link {
+    background-color: #343a40;
+    border-color: #343a40;
+    color: white;
+}
+
+:host ::ng-deep .pagination .page-item.disabled .page-link {
+    color: #aaa;
+}

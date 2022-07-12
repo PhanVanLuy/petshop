@@ -1,0 +1,256 @@
+<div class="m-5">
+    <div class="container">
+        <div class="row flex-sm-row-reverse">
+            <div class="col-md-8">
+                <div class="row mat100">
+                    <div class="col-12">
+                        <mat-card class="mat100">
+                            <div class="row">
+                                <div class="col-12">
+                                    <mat-card class="w-100 bg-dark">
+                                        <a class="text-white" href="javascript:"
+                                           [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]"
+                                           (click)="applyNewcomersCoupon()">Welcome newcomers! Get your 5$ coupon for
+                                            first order <b>(FREE5)</b>
+                                            <mat-icon>open_in_new</mat-icon>
+                                        </a>
+                                    </mat-card>
+                                </div>
+                            </div>
+                            <div class="row mt-2" *ngIf="carouselIndicators">
+                                <div class="col-12">
+
+                                    <ngb-carousel>
+                                        <ng-container
+                                            *ngFor="let carouseIndicator of carouselIndicators; let i = index">
+                                            <ng-template ngbSlide>
+                                                <div class="picsum-img-wrapper">
+                                                    <a href="javascript:"
+                                                       (click)="carouseAction(carouseIndicator.action)">
+                                                        <img class="w-100" [src]="carouseIndicator.image"
+                                                             alt="{{i}} slide">
+                                                    </a>
+                                                </div>
+                                            </ng-template>
+                                        </ng-container>
+                                    </ngb-carousel>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mt-2 mt-sm-0">
+                <div class="row mat100">
+                    <div class="col-12">
+                        <mat-card class="mat100">
+                            <mat-card-header [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]">
+                                <mat-icon mat-card-avatar>dashboard</mat-icon>
+                                <a mat-card-title href="javascript:" class="text-dark">Category</a>
+                            </mat-card-header>
+                            <mat-card-content>
+                                <mat-nav-list>
+                                    <a mat-list-item *ngFor="let cate of linkCategories; let i = index"
+                                       href="javascript:" [routerLink]="[URL.SYMBOL+URL.SHOP,cate]">
+                                        <mat-icon matListIcon>arrow_forward</mat-icon>
+                                        <span matLine>
+                                            {{categories[i]}}
+                                        </span>
+                                    </a>
+                                </mat-nav-list>
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2" *ngIf="shop">
+            <div class="col-12">
+                <mat-card class="w-100 clickable" [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]"
+                          [queryParams]="{order:'sale'}">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto pr-0">
+                                    <mat-icon>whatshot</mat-icon>
+                                </div>
+                                <div class="font-weight-bold col d-flex align-items-center justify-content-start pl-0">
+                                    <span>
+                                        Hot Sale
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex align-items-center justify-content-end">
+                            <a href="javascript:" class="text-dark">View more</a>
+
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <div class="row" *ngIf="hotSaleItems">
+                                <ng-container *ngFor="let item of hotSaleItems">
+                                    <app-index-item [itemId]="item.id" [showSale]="true" class="col-sm-2 col-4">
+                                    </app-index-item>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row mt-2" *ngIf="shop">
+            <div class="col-md-6">
+                <div class="row mat100">
+                    <div class="col-12">
+                        <mat-card class="w-100 mat100 clickable" [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]"
+                                  [queryParams]="{order:'best'}">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-auto pr-0">
+                                            <mat-icon>eco</mat-icon>
+                                        </div>
+                                        <div
+                                            class="font-weight-bold col d-flex align-items-center justify-content-start pl-0">
+                                    <span>
+                                        Top Selection
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col d-flex align-items-center justify-content-end">
+                                    <a href="javascript:" class="text-dark">View more</a>
+
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <div class="row" *ngIf="topSelectionItems">
+                                        <ng-container *ngFor="let item of topSelectionItems">
+                                            <app-index-item [itemId]="item.id" class="col-4">
+                                            </app-index-item>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mt-2 mt-sm-0">
+                <div class="row mat100">
+                    <div class="col-12">
+                        <mat-card class="w-100 mat100 clickable" [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]"
+                                  [queryParams]="{order:'new'}">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col-auto pr-0">
+                                            <mat-icon>flash_on</mat-icon>
+                                        </div>
+                                        <div
+                                            class="font-weight-bold col d-flex align-items-center justify-content-start pl-0">
+                                    <span>
+                                        New For You
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col d-flex align-items-center justify-content-end">
+                                    <a href="javascript:" class="text-dark">View more</a>
+
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-12">
+                                    <div class="row" *ngIf="newArrivalItems">
+                                        <ng-container *ngFor="let item of newArrivalItems">
+                                            <app-index-item [itemId]="item.id" class="col-4">
+                                            </app-index-item>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-2" *ngIf="shop">
+            <div class="col-12">
+                <mat-card class="w-100 clickable" [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]"
+                          [queryParams]="{order:'orders'}">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto pr-0">
+                                    <mat-icon>shopping_cart</mat-icon>
+                                </div>
+                                <div class="font-weight-bold col d-flex align-items-center justify-content-start pl-0">
+                                    <span>
+                                        Best Orders
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex align-items-center justify-content-end">
+                            <a href="javascript:" class="text-dark">View more</a>
+
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <div class="row" *ngIf="bestOrderItems">
+                                <ng-container *ngFor="let item of bestOrderItems">
+                                    <app-index-item [itemId]="item.id" [showOrders]="true" class="col-sm-2 col-4">
+                                    </app-index-item>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row mt-2" *ngIf="shop">
+            <div class="col-12">
+                <mat-card class="w-100 clickable" [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]">
+                    <div class="row">
+                        <div class="col">
+                            <div class="row">
+                                <div class="col-auto pr-0">
+                                    <mat-icon>shopping_cart</mat-icon>
+                                </div>
+                                <div class="font-weight-bold col d-flex align-items-center justify-content-start pl-0">
+                                    <span>
+                                        More To Love
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col d-flex align-items-center justify-content-end">
+                            <a href="javascript:" class="text-dark">View more</a>
+
+                        </div>
+                    </div>
+                    <div class="row mt-1">
+                        <div class="col-12">
+                            <div class="row" *ngIf="moreItems">
+                                <ng-container *ngFor="let item of moreItems">
+                                    <app-index-item [itemId]="item.id" class="col-sm-2 col-4">
+                                    </app-index-item>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </mat-card>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-12 d-flex justify-content-center">
+                <button color="primary" mat-raised-button [routerLink]="[URL.SYMBOL + URL.SHOP_ALL]">View More
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

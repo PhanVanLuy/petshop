@@ -1,0 +1,52 @@
+<div class="m-5">
+    <div class="container">
+        <div class="row" *ngIf="!(authService.user | async)">
+            <div class="col-12 text-center">
+                <h6>You have to <a href="javascript:void(0)" (click)="loginModalService.login()">Login</a> to see
+                    history</h6>
+            </div>
+        </div>
+        <div class="row" *ngIf="authService.user | async">
+            <div class="col-12" *ngIf="histories">
+                <mat-vertical-stepper [linear]="false" class="w-100">
+                    <ng-container *ngFor="let history of histories; index as i">
+                        <mat-step editable="false"
+                                  [completed]="false">
+                            <ng-template matStepLabel>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.LOGIN">
+                                    Login into Store4pet
+                                </span>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.LOGOUT">
+                                    Logout into Store4pet
+                                </span>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.CHANGE_PROFILE">
+                                    Change profile
+                                </span>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.ADD_CART">
+                                    Added into cart: <a
+                                    [routerLink]="URL.SYMBOL+URL.PRODUCT+URL.SYMBOL+history.id">{{history.id}}</a>
+                                </span>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.ADD_WISH">
+                                    Added into wish: <a
+                                    [routerLink]="URL.SYMBOL+URL.PRODUCT+URL.SYMBOL+history.id">{{history.id}}</a>
+                                </span>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.PURCHASE">
+                                    Purchase with order: <a
+                                    [routerLink]="URL.SYMBOL+URL.ORDER_TRACKING+URL.SYMBOL+history.id">{{history.id}}</a>
+                                </span>
+                                <span class="font-weight-bold" *ngIf="history.type === HISTORY_TYPE.REFUND">
+                                    Request refund with order: <a
+                                    [routerLink]="URL.SYMBOL+URL.ORDER_TRACKING+URL.SYMBOL+history.id">{{history.id}}</a>
+                                </span>
+                                <br>
+                                <span>
+                                    {{history.timestamp}}
+                                </span>
+                            </ng-template>
+                        </mat-step>
+                    </ng-container>
+                </mat-vertical-stepper>
+            </div>
+        </div>
+    </div>
+</div>

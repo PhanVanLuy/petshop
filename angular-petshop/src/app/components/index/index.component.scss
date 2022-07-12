@@ -1,0 +1,14 @@
+:host ::ng-deep .mat-list-item {
+    height: unset !important;
+}
+:host ::ng-deep .mat-list-item-content {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+:host ::ng-deep .mat-list-text {
+    padding-left: 0 !important;
+}
+
+:host ::ng-deep button.mat-primary {
+    background-color: #343a40 !important;
+}

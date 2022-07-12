@@ -1,0 +1,38 @@
+<div class="row">
+    <h4 class="col-12 font-weight-bold align-items-center text-center">
+        Write a review
+    </h4>
+</div>
+<div class="row">
+    <div class="col-12 align-items-center justify-content-start text-center">
+        <app-star-rating [rating]="rating" [starCount]="starCount"
+                         (ratingUpdated)="onRatingChanged($event)"></app-star-rating>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12 align-items-center justify-content-center text-center">
+        <mat-form-field class="w-100">
+            <textarea matInput placeholder="Leave a review" [formControl]="review"></textarea>
+        </mat-form-field>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <app-image-upload class="row" [files]="files" [images]="images"></app-image-upload>
+    </div>
+</div>
+<div class="row justify-content-end">
+    <div class="col-auto d-flex justify-content-center">
+        <button type="button"
+                class="btn btn-dark" (click)="onSubmitReview()">
+            <ng-container *ngIf="isLoading">
+                <span class="spinner-border spinner-border-sm" role="status"
+                      aria-hidden="true"></span>
+                Loading...
+            </ng-container>
+            <ng-container *ngIf="!isLoading">
+                <span>SUBMIT</span>
+            </ng-container>
+        </button>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+<div class="row">
+    <span class="font-weight-bold">
+        {{this.product?.productTitle}}
+    </span>
+</div>
+<app-product-star [reviewSummary]="reviewSummary" [orders]="product.orders" (viewReviews)="this.viewReviews.emit()"></app-product-star>
+<div class="row">
+    <ng-container *ngIf="!pricing">
+        <div class="col-auto d-flex align-items-center pl-0">
+            <h4 class="font-weight-bold m-0">
+                {{this.product?.currentMin | currency: 'USD'}}
+                <ng-container *ngIf="this.product?.currentMin !== this.product?.currentMax">
+                    - {{this.product?.currentMax | currency: 'USD' }}
+                </ng-container>
+            </h4>
+        </div>
+        <div *ngIf="this.product?.currentMin !== this.product?.min"
+             class="col-auto d-flex align-items-center pl-0">
+            <s class="font-weight-light">
+                {{this.product?.min | currency: 'USD'}}
+                <ng-container *ngIf="this.product?.min !== this.product?.max">
+                    - {{this.product?.max | currency: 'USD' }}
+                </ng-container>
+            </s>
+            <p class="bg-dark text-white m-0 ml-1">
+                -{{1 - this.product?.currentMin / this.product?.min | percent: '2.0-0'}}
+            </p>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="pricing">
+        <div class="col-auto d-flex align-items-center pl-0">
+            <h4 class="font-weight-bold m-0">
+                {{this.currentPricing | currency: 'USD'}}
+            </h4>
+        </div>
+        <div *ngIf="this.currentPricing !== this.pricing"
+             class="col-auto d-flex align-items-center pl-0">
+            <s class="font-weight-light">
+                {{this.pricing | currency: 'USD'}}
+            </s>
+            <p class="bg-dark text-white m-0 ml-1">
+                -{{1 - this.currentPricing / this.pricing | percent: '2.0-0'}}
+            </p>
+        </div>
+    </ng-container>
+</div>
+<app-product-attributes [attributes]="product?.attributes"
+                        (changeAttributes)="changeAttributes($event)"></app-product-attributes>
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="row">
+            <span>
+                Quantity:
+            </span>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <div class="row">
+                    <ng-number-picker [(value)]="quantity" min="1" max="3"></ng-number-picker>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12">
+        <div class="row">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>{{product?.requiredNote? 'Note (required)' : 'Note (option)'}}</mat-label>
+                <input matInput [placeholder]="product?.noteHolder? product?.noteHolder : 'Write your note'" [required]="product?.requiredNote" maxlength="40" (keyup)="writeNote($event)">
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+<div class="row mt-2">
+    <div class="col-12 pl-0">
+        <div class="row justify-content-start">
+            <div class="col-5">
+                <div *ngIf="!isValidAttributes || !isValidNote" class="btn btn-dark btn-lg btn-block"
+                     ngbTooltip="Please provide the missing information first!" [closeDelay]="500"
+                     #buyNow="ngbTooltip" (click)="buyNow.open()">
+                    <span>Buy Now</span>
+                </div>
+                <button *ngIf="isValidAttributes && isValidNote" type="button" class="btn btn-dark btn-lg btn-block"
+                        (click)="buyNow()">
+                    <span>Buy Now</span>
+                </button>
+            </div>
+            <div class="col-5">
+                <ng-container *ngIf="!(isCart | async)">
+                    <div *ngIf="!isValidAttributes || !isValidNote" class="btn btn-secondary btn-lg btn-block"
+                         ngbTooltip="Please provide the missing information first!" [closeDelay]="500"
+                         #addCart="ngbTooltip" (click)="addCart.open()">
+                        <span>Add To Cart</span>
+                    </div>
+                    <ng-container *ngIf="isValidAttributes && isValidNote">
+                        <button type="button" class="btn btn-secondary btn-lg btn-block"
+                                (click)="onCart()">
+                            <span>Add To Cart</span>
+                        </button>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="(isCart | async)">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block"
+                            (click)="onCart()">
+                        <span>View Cart</span>
+                    </button>
+                    <div class="d-flex justify-content-center text-white-grey">
+                        <small>Added To Cart</small>
+                    </div>
+                </ng-container>
+
+            </div>
+            <div class="col-2 d-flex p-0">
+                <button type="button" class="btn btn-outline-dark btn-block" (click)="onWish()">
+                    <mat-icon *ngIf="!(isWish | async)">favorite_border</mat-icon>
+                    <mat-icon *ngIf="(isWish | async)">favorite</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row my-2 justify-content-center">
+    <div class="col-auto">
+        <div class="row">
+            <div class="col-auto pr-1 pt-1">
+                <mat-icon>local_shipping</mat-icon>
+            </div>
+            <div class="col pl-1 d-flex align-items-center">
+                <span>Free Shipping</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-auto">
+        <div class="row">
+            <div class="col-auto pr-1 pt-1">
+                <mat-icon>security</mat-icon>
+            </div>
+            <div class="col pl-1 d-flex align-items-center">
+                <span>Money Guarantee</span>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>

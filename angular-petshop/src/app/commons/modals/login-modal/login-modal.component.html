@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h4 class="modal-title">Login</h4>
+    <button type="button" class="close" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <div id="google-login">
+        <img src="https://resource.infinityfunny.com/images/btn_google.png"
+            alt="google login" (click)="googleSignIn()"/>
+    </div>
+
+    <div id="facebook-login">
+        <img src="https://resource.infinityfunny.com/images/btn_facebook.png"
+             alt="facebook login" (click)="facebookSignIn()"/>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="bsModalRef.hide()">Close</button>
+</div>

@@ -1,0 +1,63 @@
+<mat-card class="m-2 w-100 clickable" *ngIf="shortProduct" [routerLink]="[URL.SYMBOL + URL.PRODUCT,shortProduct.link]" matTooltip="{{shortProduct.title}}">
+    <mat-card-content>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="row m-1">
+                    <div class="col-12">
+                        <a href="javascript:">
+                            <img class="w-100" [src]="shortProduct.image" alt="product {{shortProduct.id}}">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-center">
+                <div class="row">
+                    <div class="col-12">
+                        <a class="text-dark" href="javascript:">
+                            <span class="titleText">
+                                {{shortProduct.title}}
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-center">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row mt-1" *ngIf="shortProduct.pricing">
+                            <div class="col-auto d-flex align-items-center">
+                                <h6 class="font-weight-bold m-0">
+                                    {{shortProduct.currentPricing | currency: 'USD'}}
+                                </h6>
+                            </div>
+                            <div *ngIf="shortProduct.currentPricing !== shortProduct.pricing"
+                                 class="col-auto d-flex align-items-center pl-0">
+                                <s class="font-weight-light">
+                                    {{shortProduct.pricing | currency: 'USD'}}
+                                </s>
+                                <p class="bg-dark text-white m-0 ml-1">
+                                    -{{1 - shortProduct.currentPricing / shortProduct.pricing | percent: '2.0-0'}}
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row mt-1" *ngIf="shortProduct.orders">
+                            <div class="col-12">
+                                <span>Orders({{shortProduct.orders}})</span>
+                            </div>
+                        </div>
+                        <div class="row mt-1" *ngIf="shortProduct.average">
+                            <div class="col-12">
+                                <app-star [starValue]="shortProduct.average"></app-star>
+                            </div>
+                        </div>
+                        <div class="row mt-1" *ngIf="shortProduct.reviews">
+                            <div class="col-12">
+                                <span>Reviews({{shortProduct.reviews}})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

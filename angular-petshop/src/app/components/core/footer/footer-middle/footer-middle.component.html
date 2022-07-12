@@ -1,0 +1,159 @@
+<div class="bg-black-less text-grey">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="row text-white my-2">
+                    <div class="col">
+                        <h3 class="font-weight-bold service-title">Contact Us</h3>
+                    </div>
+                </div>
+                <div class="row my-2 content-list">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 pr-0 font-weight-bold">
+                                <span>ADDRESS:</span>
+                            </div>
+
+                            <div class="col-8 pl-0">
+                                <p>Sacom ChipSang Town, D1 Street,<br>Hi-Tech Park, District 9,<br> Ho Chi Minh City, Vietnam</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 pr-0 font-weight-bold">
+                                <span>EMAIL:</span>
+                            </div>
+                            <div class="col-8 pl-0">
+                                <p>
+                                    <a class="text-grey"
+                                       [href]="'mailto:support@'+CONSTANTS.DOMAIN">support@{{CONSTANTS.DOMAIN}}
+                                    </a>
+                                    <br>
+                                    <a class="text-grey"
+                                       [href]="'mailto:contact@'+CONSTANTS.DOMAIN">contact@{{CONSTANTS.DOMAIN}}
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="row text-white my-2">
+                    <div class="col d-flex justify-content-center mx-5">
+                        <h3 class="font-weight-bold service-title">Account</h3>
+                    </div>
+                </div>
+                <div class="row my-2 content-list font-weight-bold">
+                    <div class="col">
+                        <div class="row justify-content-center my-2">
+                            <div *ngIf="auth.user | async; then authenticated else guest">
+                            </div>
+                            <ng-template #guest>
+                                <a class="text-grey" (click)="loginService.login()">
+                                    {{TITLE.LOGIN}}
+                                </a>
+                            </ng-template>
+                            <ng-template #authenticated>
+                                <a class="text-grey" [routerLink]="URL.PROFILE">
+                                    {{TITLE.PROFILE}}
+                                </a>
+                            </ng-template>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.CART">
+                                {{TITLE.CART}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.HISTORY">
+                                {{TITLE.HISTORY}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.WISH_LIST">
+                                {{TITLE.WISH_LIST}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.REFUND">
+                                {{TITLE.REFUND}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="row text-white my-2">
+                    <div class="col d-flex justify-content-center mx-5">
+                        <h3 class="font-weight-bold service-title">Information</h3>
+                    </div>
+                </div>
+                <div class="row my-2 content-list font-weight-bold">
+                    <div class="col">
+<!--                        <div class="row justify-content-center my-2">-->
+<!--                            <a class="text-grey" [routerLink]="URL.BLOG">-->
+<!--                                {{TITLE.BLOG}}-->
+<!--                            </a>-->
+<!--                        </div>-->
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.CONTACT">
+                                {{TITLE.CONTACT}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.ABOUT_US">
+                                {{TITLE.ABOUT_US}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.VENDOR_DETAILS">
+                                {{TITLE.VENDOR_DETAILS}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.DELIVERY_DETAILS">
+                                {{TITLE.DELIVERY_DETAILS}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xl-3">
+                <div class="row text-white my-2">
+                    <div class="col d-flex justify-content-center mx-5">
+                        <h3 class="font-weight-bold service-title">Service</h3>
+                    </div>
+                </div>
+                <div class="row my-2 content-list font-weight-bold">
+                    <div class="col">
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.PRIVACY_POLICY">
+                                {{TITLE.PRIVACY_POLICY}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.COOKIE_POLICY">
+                                {{TITLE.COOKIE_POLICY}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.REFUND_POLICY">
+                                {{TITLE.REFUND_POLICY}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.TERMS_CONDITIONS">
+                                {{TITLE.TERMS_CONDITIONS}}
+                            </a>
+                        </div>
+                        <div class="row justify-content-center my-2">
+                            <a class="text-grey" [routerLink]="URL.USER_POLICY">
+                                {{TITLE.USER_POLICY}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

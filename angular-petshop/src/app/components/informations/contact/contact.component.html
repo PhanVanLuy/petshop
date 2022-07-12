@@ -1,0 +1,140 @@
+<div class="m-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="w-100" #map style="height: 400px"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row text-dark my-2">
+                            <div class="col">
+                                <h3 class="font-weight-bold">Contact Information</h3>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <form [formGroup]="contactForm" class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="name">Name<span>*</span></label>
+                                            <input id="name" aria-describedby="nameHelp"
+                                                   class="form-control" name="name"
+                                                   [ngClass]="{'is-invalid' : name.invalid && (submitted || name.touched)}"
+                                                   formControlName="name">
+                                            <small *ngIf="name.invalid && (submitted || name.touched)"
+                                                   id="nameHelp" class="form-text text-danger">
+                                                <ng-container *ngIf="name.errors?.required">
+                                                    Message is required.
+                                                </ng-container>
+                                                <ng-container *ngIf="name.errors?.minlength">
+                                                    Message must be at least 3 characters long.
+                                                </ng-container>
+                                                <ng-container *ngIf="name.errors?.maxlength">
+                                                    Message must be less than 30 characters long.
+                                                </ng-container>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">Email<span>*</span></label>
+                                            <input id="email" aria-describedby="emailHelp"
+                                                   class="form-control" name="email"
+                                                   [ngClass]="{'is-invalid' : email.invalid && (submitted || email.touched)}"
+                                                   formControlName="email">
+                                            <small *ngIf="email.invalid && (submitted || email.touched)"
+                                                   id="emailHelp" class="form-text text-danger">
+                                                <ng-container *ngIf="email.errors?.required">
+                                                    Message is required.
+                                                </ng-container>
+                                                <ng-container *ngIf="email.errors?.email">
+                                                    Invalid email format
+                                                </ng-container>
+                                            </small>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label for="message">Message<span>*</span></label>
+                                            <textarea id="message" aria-describedby="messageHelp"
+                                                      class="form-control" name="message"
+                                                      [ngClass]="{'is-invalid' : message.invalid && (submitted || message.touched)}"
+                                                      formControlName="message"></textarea>
+                                            <small *ngIf="message.invalid && (submitted || message.touched)"
+                                                   id="messageHelp" class="form-text text-danger">
+                                                <ng-container *ngIf="message.errors?.required">
+                                                    Message is required.
+                                                </ng-container>
+                                                <ng-container *ngIf="message.errors?.minlength">
+                                                    Message must be at least 30 characters long.
+                                                </ng-container>
+                                                <ng-container *ngIf="message.errors?.maxlength">
+                                                    Message must be less than 500 characters long.
+                                                </ng-container>
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                    <div class="col mt-3">
+                                        <button (click)="onSubmitMessage()" class="btn btn-secondary"
+                                                type="submit">
+                                            <ng-container *ngIf="loading">
+                                                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                                Loading...
+                                            </ng-container>
+                                            <ng-container *ngIf="!loading">
+                                                Send Message
+                                            </ng-container>
+                                        </button>
+                                    </div>
+                                </form>
+                                <p *ngIf="errorMessage" class="text-danger">
+                                    {{errorMessage}}
+                                </p>
+                                <p *ngIf="successMessage">
+                                    Thank You! Your message has been sent.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="row text-dark my-2">
+                    <div class="col">
+                        <h3 class="font-weight-bold">Contact Us</h3>
+                    </div>
+                </div>
+                <div class="row my-2 content-list">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col-4 pr-0 font-weight-bold">
+                                <span><mat-icon>location_city</mat-icon> ADDRESS:</span>
+                            </div>
+                            <div class="col-8 pl-0">
+                                <p>Sacom ChipSang Town, D1 Street,<br>Hi-Tech Park, District 9,<br> Ho Chi Minh City, Vietnam</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-4 pr-0 font-weight-bold">
+                                <span><mat-icon>email</mat-icon> EMAIL:</span>
+                            </div>
+                            <div class="col-8 pl-0">
+                                <p>
+                                    support@{{CONSTANTS.DOMAIN}}
+                                    <br>
+                                    contact@{{CONSTANTS.DOMAIN}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+

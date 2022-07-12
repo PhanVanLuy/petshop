@@ -1,0 +1,26 @@
+<div class="row clickable" *ngIf="shortProduct" (click)="redirectProduct();$event.stopPropagation();" matTooltip="{{shortProduct.title}}">
+    <div class="col-12">
+            <img class="w-100" [src]="shortProduct.image" [alt]="shortProduct.title">
+        <div class="row mt-1" *ngIf="shortProduct.pricing">
+            <div class="col-auto d-flex align-items-center">
+                <h6 class="font-weight-bold m-0">
+                    {{shortProduct.currentPricing | currency: 'USD'}}
+                </h6>
+            </div>
+            <div *ngIf="shortProduct.currentPricing !== shortProduct.pricing && showSale"
+                 class="col-auto d-flex align-items-center pl-0">
+                <s class="font-weight-light">
+                    {{shortProduct.pricing | currency: 'USD'}}
+                </s>
+                <p class="bg-dark text-white m-0 ml-1">
+                    -{{1 - shortProduct.currentPricing / shortProduct.pricing | percent: '2.0-0'}}
+                </p>
+            </div>
+        </div>
+        <div class="row mt-1" *ngIf="shortProduct.orders && showOrders">
+            <div class="col-12">
+                <span>Orders({{shortProduct.orders}})</span>
+            </div>
+        </div>
+    </div>
+</div>

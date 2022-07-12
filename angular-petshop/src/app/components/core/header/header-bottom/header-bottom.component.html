@@ -1,0 +1,63 @@
+<div class="mt-0">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <div *ngIf="auth.user | async; then authenticated else guest">
+                    </div>
+                    <ng-template #guest>
+                        <div class="align-items-center mx-2">
+                            <a class="text-dark font-weight-bold" (click)="loginService.login()">
+                                <mat-icon>account_circle</mat-icon>
+                                {{TITLE.LOGIN}}
+                            </a>
+                        </div>
+                    </ng-template>
+                    <ng-template #authenticated>
+                        <div class="align-items-center mx-2">
+                            <a class="text-dark font-weight-bold" [routerLink]="URL.PROFILE">
+                                <mat-icon>account_circle</mat-icon>
+                                {{TITLE.PROFILE}}
+                            </a>
+                        </div>
+                        <div class="align-items-center mx-2">
+                            <a class="text-dark font-weight-bold" (click)="logout()">
+                                <mat-icon>logout</mat-icon>
+                                {{TITLE.LOGOUT}}
+                            </a>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center justify-content-center">
+                <div class="row w-100 search">
+                    <form [formGroup]="searchProducts" (ngSubmit)="onSearchSubmit()" class="w-100 align-items-center">
+                        <input type="text" class="form-control text-dark" id="inlineFormInputGroup"
+                               formControlName="keyword"
+                               placeholder="Search...">
+                        <button>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="col-sm-4 d-flex align-items-center justify-content-center">
+                <div class="row">
+                    <div class="align-items-center mx-2">
+                        <a class="text-dark font-weight-bold" [routerLink]="URL.ORDER_TRACKING">
+                            <mat-icon>history</mat-icon>
+                            {{TITLE.ORDER_TRACKING}}
+                        </a>
+                    </div>
+                    <div class="align-items-center mx-2">
+                        <a class="text-dark font-weight-bold" [routerLink]="URL.WISH_LIST">
+                            <mat-icon>favorite</mat-icon>
+                            {{TITLE.WISH_LIST}}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mt-0 mb-0">
+</div>

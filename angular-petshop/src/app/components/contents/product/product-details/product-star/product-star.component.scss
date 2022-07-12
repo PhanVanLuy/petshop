@@ -1,0 +1,27 @@
+.star-title {
+    cursor: pointer;
+}
+
+.star-section {
+    position: relative;
+    display: inline-block;
+    float: right;
+}
+
+.star-dropdown {
+    display: none;
+    position: absolute;
+    left: 0;
+    min-width: 400px;
+    background-color: #f9f9f9;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    z-index: 100;
+}
+
+.star-section:hover .star-dropdown {
+    display: block;
+}
+
+a.count-review:hover {
+    text-decoration: underline;
+}

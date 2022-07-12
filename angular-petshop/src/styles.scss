@@ -1,0 +1,54 @@
+/* You can add global styles to this file, and also import other style files */
+a {
+    cursor: pointer;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.text-white-grey {
+    color: #aaaaaa;
+}
+
+.text-grey {
+    color: #999;
+}
+a.text-grey:hover {
+    color: #999;
+}
+
+.bg-black-less {
+    background-color: #282828;
+}
+
+.titleText {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.icon-2x {
+    font-size: 2em;
+}
+
+.icon-3x {
+    font-size: 3em;
+}
+
+.mat-icon {
+    vertical-align: middle;
+}
+
+.font-size-50 {
+    font-size: 50px;
+}
+
+.mat100 {
+    height: 100%;
+}

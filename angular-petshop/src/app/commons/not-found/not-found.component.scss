@@ -1,0 +1,31 @@
+h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 180px;
+    font-weight: 900;
+    color: #262626;
+    text-transform: uppercase;
+    letter-spacing: -40px;
+
+    & > span {
+        text-shadow: -8px 0px 0px #fff;
+    }
+}
+h3 {
+    font-family: 'Cabin', sans-serif;
+    position: absolute;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #262626;
+    margin: 0;
+    letter-spacing: 3px;
+    padding-left: 6px;
+    left: 50%;
+    top: 16%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    width: 100%;
+    line-height: 1.4;
+    text-align: center;
+}

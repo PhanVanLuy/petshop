@@ -1,0 +1,43 @@
+<ngb-tabset #tabs justify="justified" type="tabs" [destroyOnHide]="false">
+
+    <ngb-tab id="description">
+        <ng-template ngbTabTitle>
+            <h3 class="font-weight-bold">
+                OVERVIEW
+            </h3>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <app-product-overview [description]="description"></app-product-overview>
+        </ng-template>
+    </ngb-tab>
+
+    <ngb-tab id="specifications">
+        <ng-template ngbTabTitle>
+            <h3 class="font-weight-bold">
+                SPECIFICATIONS
+            </h3>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <app-product-specifications [properties]="properties"></app-product-specifications>
+        </ng-template>
+    </ngb-tab>
+
+    <ngb-tab id="reviews">
+        <ng-template ngbTabTitle>
+            <h3 class="font-weight-bold">
+                REVIEWS ({{reviewSummary?.count}})
+            </h3>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <ng-container *ngIf="reviewSummary !== null && reviewSummary !== undefined ">
+                <app-product-reviews [productId]="productId" [reviewSummary]="reviewSummary"></app-product-reviews>
+            </ng-container>
+            <ng-container *ngIf="reviewSummary === undefined || reviewSummary === null ">
+                <h3 class="font-weight-bold text-center">
+                    NO FEEDBACK
+                </h3>
+            </ng-container>
+        </ng-template>
+    </ngb-tab>
+
+</ngb-tabset>

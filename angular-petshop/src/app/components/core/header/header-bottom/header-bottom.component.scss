@@ -1,0 +1,28 @@
+
+.search {
+    & form {
+        position: relative;
+        & input {
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-top-colors: none;
+            background: transparent none repeat scroll 0 0;
+            border-color: currentcolor #e5e5e5;
+            border-image: none;
+            border-style: none solid;
+            border-width: medium 1px;
+            box-shadow: none;
+            height: 50px;
+        }
+        & button {
+            background: transparent none repeat scroll 0 0;
+            border: medium none;
+            font-size: 20px;
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            cursor: pointer;
+        }
+    }
+}

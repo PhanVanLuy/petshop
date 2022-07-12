@@ -1,0 +1,34 @@
+<div class="m-5" *ngIf="this.product">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-7 col-12">
+                <app-product-pictures [pics]="this.product.pics"
+                                      [pictures]="this.product.pictures">
+                </app-product-pictures>
+                <app-product-shares
+                    [image]="this.product.pic"
+                    [link]="this.product.link"
+                    [title]="this.product.productTitle">
+                </app-product-shares>
+            </div>
+            <div class="col-md-12 col-lg-5 col-12">
+                <app-product-details [product]="product" [reviewSummary]="reviewSummary"
+                                     (viewReviews)="viewReviews()">
+                </app-product-details>
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12" id="overviews-section">
+                <app-product-overviews [productId]="id" [description]="this.product.description"
+                                       [properties]="this.product.properties"
+                                       [reviewSummary]="reviewSummary"
+                                       [gotoReviews]="gotoReviews">
+                </app-product-overviews>
+            </div>
+        </div>
+    </div>
+    <ng-container *ngIf="jsonBreadcrumbList && jsonProduct">
+        <ngx-json-ld [json]="jsonBreadcrumbList"></ngx-json-ld>
+        <ngx-json-ld [json]="jsonProduct"></ngx-json-ld>
+    </ng-container>
+</div>

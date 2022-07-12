@@ -1,0 +1,13 @@
+<ng-container *ngFor="let star of [1,2,3,4,5]">
+    <ng-container *ngIf="starValue >= star">
+        <mat-icon>star</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="starValue < star">
+        <ng-container *ngIf="starValue > star - 1">
+            <mat-icon>star_half</mat-icon>
+        </ng-container>
+        <ng-container *ngIf="starValue <= star - 1">
+            <mat-icon>star_border</mat-icon>
+        </ng-container>
+    </ng-container>
+</ng-container>

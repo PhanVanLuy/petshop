@@ -1,0 +1,41 @@
+<div class="row mt-2" *ngIf="reviewSummary">
+    <div class="col-auto pl-0">
+        <div class="star-section" (mouseover)="starSection=true">
+            <div class="star-title">
+                <app-star-average [average]="reviewSummary.average"></app-star-average>
+                <mat-icon>keyboard_arrow_down</mat-icon>
+            </div>
+
+            <div class="star-dropdown p-3 rounded" *ngIf="starSection">
+                <div class="col">
+
+                    <app-stars-list [count]="reviewSummary.count" [fiveCount]="reviewSummary.fiveCount"
+                                    [fourCount]="reviewSummary.fourCount" [threeCount]="reviewSummary.threeCount"
+                                    [twoCount]="reviewSummary.twoCount"
+                                    [oneCount]="reviewSummary.oneCount"></app-stars-list>
+
+                    <div class="row my-2">
+                        <div class="col-12">
+                            <button (click)="starSection = false;goToReviews();" type="button"
+                                    class="btn btn-dark w-100 cart-button">
+                                View All Reviews
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="text-dark count-review" (click)="goToReviews();">
+        <p class="ml-2">
+            {{reviewSummary.count}}
+            Reviews
+        </p>
+    </a>
+    <p class="ml-2">
+        {{orders}} Orders
+    </p>
+</div>
+
+
+

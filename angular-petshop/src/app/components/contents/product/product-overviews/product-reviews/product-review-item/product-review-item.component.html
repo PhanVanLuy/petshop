@@ -1,0 +1,38 @@
+<ng-container *ngIf="review">
+    <div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-start">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center align-items-center">
+                    <span class="font-weight-bold">
+                        {{review?.displayName}}
+                    </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center align-items-center">
+                        <app-star [starValue]="review?.star"></app-star>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-8">
+        <div class="row">
+            <div class="col-12">
+                <p>
+                    {{review?.content}}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2" *ngFor="let image of review?.images">
+                <ng-template #tipContent>
+                    <img class="popover-image" [src]="image" [alt]="'review image ' + review.uid">
+                </ng-template>
+                <img class="w-100 popover-click" placement="bottom" [src]="image" [alt]="'review image ' + review.uid"
+                     [ngbPopover]="tipContent">
+            </div>
+        </div>
+    </div>
+</ng-container>

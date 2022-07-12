@@ -1,0 +1,49 @@
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-sm-12 col-md-8 col-8">
+                <app-stars-list [count]="reviewSummary?.count" [fiveCount]="reviewSummary?.fiveCount"
+                                [fourCount]="reviewSummary?.fourCount" [threeCount]="reviewSummary?.threeCount"
+                                [twoCount]="reviewSummary?.twoCount"
+                                [oneCount]="reviewSummary?.oneCount"></app-stars-list>
+            </div>
+            <div class="col-sm-12 col-md-4 col-4 d-flex justify-content-center align-items-center">
+                <app-star-average [average]="reviewSummary?.average"></app-star-average>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-12 d-flex justify-content-end">
+                <div ngbDropdown class="d-inline-block">
+                    <button class="btn btn-secondary font-weight-bold" id="sortReviews" ngbDropdownToggle>
+                        {{currentSort.value}}
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="sortReviews">
+                        <ng-container *ngFor="let sort of sortActions">
+                            <button ngbDropdownItem class="font-weight-bold" (click)="sortAction(sort)">
+                                {{sort.value}}
+                            </button>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row m-4"
+             *ngFor="let reviewShort of reviewSummary?.reviews | reviewFilter: currentSort.id | slice: (page-1) * pageSize : (page-1) * pageSize + pageSize">
+            <div class="col-12">
+                <app-product-review-item class="row" [productId]="productId"
+                                         [reviewId]="reviewShort.reviewId"></app-product-review-item>
+            </div>
+
+        </div>
+        <hr>
+        <ngb-pagination class="d-flex justify-content-end"
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [ellipses]="true"
+                        [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                        [collectionSize]="reviewSummary?.reviews.length">
+        </ngb-pagination>
+    </div>
+</div>

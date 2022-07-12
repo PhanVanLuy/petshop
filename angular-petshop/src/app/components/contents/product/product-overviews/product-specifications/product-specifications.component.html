@@ -1,0 +1,14 @@
+<div class="row m-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6 p-1" *ngFor="let property of properties">
+                <span class="font-weight-light">
+                    {{property.propertyTitle}}:
+                </span>
+                <span>
+                    {{property.propertyDescription}}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

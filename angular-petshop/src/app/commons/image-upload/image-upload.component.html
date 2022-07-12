@@ -1,0 +1,35 @@
+<div class="col-12">
+    <div class="row justify-content-start">
+        <div class="col-sm-3 col-md-2 col-3 imageItem" *ngFor="let image of images; let i = index">
+            <div class="row">
+                <div class="col-12">
+                    <div>
+                        <ng-template #tipContent>
+                            <img class="popover-image" [src]="image" [alt]="'popover_image_' + i">
+                        </ng-template>
+                        <img [id]="'image_'+i" [alt]="'image_'+i" [src]="image" class="w-100 popover-click"
+                             placement="bottom"
+                             [ngbPopover]="tipContent">
+                        <button class="close btn btn-dark border rounded-circle text-dark" (click)="onRemoved(i)">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a class="col-sm-3 col-md-2 col-3 border" (click)="fileUpload.click()">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row text-center">
+                        <mat-icon class="h-100 w-100 font-size-50">add_a_photo</mat-icon>
+                    </div>
+                    <div class="row justify-content-center">
+                        <span>Upload Photo</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<input #fileUpload class="d-none" type="file" accept=".png, .jpg, .jpeg" (change)="onAdd($event)">

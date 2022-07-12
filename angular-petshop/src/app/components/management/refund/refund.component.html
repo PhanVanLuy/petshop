@@ -1,0 +1,165 @@
+<div class="m-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h4 class="col-12 font-weight-bold text-uppercase">
+                            Order Have Been Delivered
+                        </h4>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <form [formGroup]="orderForm" (ngSubmit)="onSubmitSearchOrder()">
+                            <div class="row m-1">
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Order Id</mat-label>
+                                        <input matInput placeholder="Enter order id"
+                                               formControlName="order" required maxlength="100">
+                                        <mat-error
+                                            *ngIf="orderForm.controls.order.invalid && (submitted || orderForm.controls.order.touched)">
+                                            <ng-container
+                                                *ngIf="orderForm.controls.order.errors?.required">
+                                                Order Id is required
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="orderForm.controls.order.errors?.pattern">
+                                                Invalid Order Id Format
+                                            </ng-container>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row m-1">
+                                <div class="col-12">
+                                    <mat-form-field appearance="outline" class="w-100">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput placeholder="Enter email address"
+                                               formControlName="email" required maxlength="100">
+                                        <mat-error
+                                            *ngIf="orderForm.controls.email.invalid && (submitted || orderForm.controls.email.touched)">
+                                            <ng-container
+                                                *ngIf="orderForm.controls.email.errors?.required">
+                                                Email is required
+                                            </ng-container>
+                                            <ng-container
+                                                *ngIf="orderForm.controls.email.errors?.pattern">
+                                                Invalid email format
+                                            </ng-container>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row m-1 my-2">
+                                <div class="col-6">
+                                    <button class="btn btn-dark" type="submit">
+                                        <mat-icon>search</mat-icon>
+                                        Search
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row m-1 my-2" *ngIf="searchNotFound">
+                                <div class="col-12">
+                                    <mat-error>
+                                        {{searchNotFound}}
+                                    </mat-error>
+                                </div>
+                            </div>
+                            <div class="row m-1 my-2" *ngIf="orderTracking">
+                                <div class="col-12">
+                                    <ng-container *ngIf="!orderTracking.refundRequest">
+                                        <div class="row">
+                                            <h6>Order can be refund:</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="javascript:void(0)"
+                                                   [routerLink]="URL.SYMBOL + URL.ORDER_TRACKING + URL.SYMBOL + orderTracking.id">
+                                                    {{orderTracking.id}}
+                                                </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn btn-dark" (click)="refund(orderTracking.id)">REFUND
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="orderTracking.refundRequest">
+                                        <div class="row">
+                                            <h6>Refund request have been sent:</h6>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <a href="javascript:void(0)"
+                                                   [routerLink]="URL.SYMBOL + URL.ORDER_TRACKING + URL.SYMBOL + orderTracking.id">
+                                                    {{orderTracking.id}}
+                                                </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <button class="btn btn-dark disabled">SENT
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <hr class="w-100 d-md-none">
+                                <div class="row">
+                                    <h4 class="col-12 font-weight-bold text-uppercase">
+                                        Orders List Have Been Delivered Can Be Refund:
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="!(authService.user | async)">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <small>
+                                            <a href="javascript:void(0)" (click)="loginService.login()">Login</a>
+                                            to see orders list
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="(authService.user | async)">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-12" *ngIf="ordersByEmail">
+                                        <div class="row m-2" *ngFor="let order of ordersByEmail">
+                                            <div class="col-6">
+                                                <a href="javascript:void(0)"
+                                                   [routerLink]="URL.SYMBOL + URL.ORDER_TRACKING + URL.SYMBOL + order.id">
+                                                    {{order.id}}
+                                                </a>
+                                            </div>
+                                            <div class="col-6" *ngIf="!order['refundRequest']">
+                                                <button class="btn btn-dark" (click)="refund(order.id)">REFUND</button>
+                                            </div>
+                                            <div class="col-6" *ngIf="order['refundRequest']">
+                                                <button class="btn btn-dark disabled">SENT</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,22 @@
+img, .close {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.popover-image {
+    max-width: 400px;
+}
+
+.popover-click {
+    cursor: pointer;
+    height: 150px;
+}
+
+:host ::ng-deep .popover {
+    max-width: 1000px !important;
+}
+
+.imageItem {
+    height: 100px;
+}
