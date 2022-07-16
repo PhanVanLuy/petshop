@@ -5,16 +5,17 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/common/cart-item';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-book-list',
-  templateUrl: './book-grid.component.html',
-  styleUrls: ['./book-list.component.css'],
+  templateUrl: './product-grid.component.html',
+  styleUrls: ['./product-list.component.css'],
   providers: [NgbPaginationConfig]
 })
-export class BookListComponent implements OnInit {
+export class ProductListComponent implements OnInit {
 
-  products: Product[] = [];
+  products!: Observable<Product[]>;
   currentCategoryId = 1;
   previousCategoryId = 1;
   searchMode = false;
@@ -72,18 +73,19 @@ export class BookListComponent implements OnInit {
 
     console.log('current page size', this.currentPage - 1 );
 
-    this.productService.getProductList();
+    this.products = this.productService.getProductList();
+    console.log('product' + this.products);
     // console.log(this.productService.getProduct().subscribe(this.processResult()));
   }
 
-  // handleSearchBooks() {
-  //   const keyword: string = this.activatedRoute.snapshot.paramMap.get('keyword');
-  //
-  //   this.productService.searchBooks(keyword,
-  //                                 this.currentPage - 1,
-  //                                 this.pageSize)
-  //                                 .subscribe(this.processResult());
-  // }
+  handleSearchBooks() {
+    const keyword: string = this.activatedRoute.snapshot.paramMap.get('keyword');
+
+    this.productService.searchBooks(keyword,
+                                  this.currentPage - 1,
+                                  this.pageSize)
+                                  .subscribe(this.processResult());
+  }
 
   // client side paging and server side paging
   updatePageSize(pageSize: number) {
@@ -102,7 +104,6 @@ export class BookListComponent implements OnInit {
   }
 
   addToCart(product: Product) {
-    console.log(`book name: ${product.name}, and price: ${product.price}`);
     const cartItem = new CartItem(product);
     this.cartService.addToCart(cartItem);
   }

@@ -1,46 +1,78 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
-import { RouterModule, Routes } from '@angular/router';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {BrowserModule} from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {HttpClientModule} from '@angular/common/http';
+import {RouterModule, Routes} from '@angular/router';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-import { AppComponent } from './app.component';
-import { BookListComponent } from './components/product-list/book-list.component';
-import { ProductService } from './services/product.service';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { BookCategoryComponent } from './components/product-category/book-category.component';
-import { SearchComponent } from './components/search/search.component';
-import { BookDetailsComponent } from './components/product-details/book-details.component';
-import { CartStatusComponent } from './components/cart-status/cart-status.component';
-import { CartDetailsComponent } from './components/cart-details/cart-details.component';
-import { CheckoutComponent } from './components/checkout/checkout.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {AppComponent} from './app.component';
+import {ProductListComponent} from './components/product-list/product-list.component';
+import {ProductService} from './services/product.service';
+import {PageNotFoundComponent} from './components/page-not-found/page-not-found.component';
+import {ProductCategoryComponent} from './components/product-category/product-category.component';
+import {SearchComponent} from './components/search/search.component';
+import {ProductDetailsComponent} from './components/product-details/product-details.component';
+import {CartStatusComponent} from './components/cart-status/cart-status.component';
+import {CartDetailsComponent} from './components/cart-details/cart-details.component';
+import {CheckoutComponent} from './components/checkout/checkout.component';
+import {ReactiveFormsModule} from '@angular/forms';
+import {LoginModalComponent} from './common/modals/login-modal/login-modal.component';
+import {UrlConstants} from './constants/url-constants';
 // client side paging
 // import { JwPaginationComponent } from 'jw-angular-pagination';
 
 
 const routes: Routes = [
-  {path: 'checkout', component: CheckoutComponent},
-  {path: 'cart-details', component: CartDetailsComponent},
-  {path: 'books/:id', component: BookDetailsComponent},
-  {path: 'products', component: BookListComponent},
-  {path: 'search/:keyword', component: BookListComponent},
-  {path: 'category/:id', component: BookListComponent},
-  {path: '', redirectTo: '/products', pathMatch: 'full'},
-  {path: '**', component: PageNotFoundComponent}
+  {
+    path: 'checkout',
+    component: CheckoutComponent
+  },
+  {
+    path: UrlConstants.LOGIN,
+    component: LoginModalComponent
+  },
+  {
+    path: UrlConstants.CART_DETAIL,
+    component: CartDetailsComponent
+  },
+  {
+    path: UrlConstants.PRODUCT_ID,
+    component: ProductDetailsComponent
+  },
+  {
+    path: UrlConstants.PRODUCTS,
+    component: ProductListComponent
+  },
+  {
+    path: 'search/:keyword',
+    component: ProductListComponent
+  },
+  {
+    path: UrlConstants.CATEGORY_ID,
+    component: ProductListComponent
+  },
+  {
+    path: '',
+    redirectTo: UrlConstants.PRODUCTS,
+    pathMatch: 'full'
+  },
+  {
+    path: UrlConstants.NOT_FOUND,
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookListComponent,
+    ProductListComponent,
     PageNotFoundComponent,
-    BookCategoryComponent,
+    ProductCategoryComponent,
     SearchComponent,
-    BookDetailsComponent,
+    ProductDetailsComponent,
     CartStatusComponent,
     CartDetailsComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    LoginModalComponent
     // client side paging
     // JwPaginationComponent
   ],
@@ -56,4 +88,5 @@ const routes: Routes = [
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

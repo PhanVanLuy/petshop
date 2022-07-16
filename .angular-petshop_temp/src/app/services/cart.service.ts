@@ -13,57 +13,57 @@ export class CartService {
 
   constructor() { }
 
-  addToCart(theCartItem: CartItem){
-    //check already item in the cart 
-    let alreadyExistsInCart: boolean = false;
-    let existingCartItem: CartItem = undefined;
-    
-    if(this.cartItems.length > 0){
-      //find the item in the cart based on id
+  addToCart(theCartItem: CartItem) {
+    // check already item in the cart
+    let alreadyExistsInCart = false;
+    let existingCartItem: CartItem;
+
+    if (this.cartItems.length > 0) {
+      // find the item in the cart based on id
 
       existingCartItem = this.cartItems.find( tempCartItem => tempCartItem.id === theCartItem.id);
 
-      //check if we found it
-      alreadyExistsInCart = (existingCartItem != undefined)
-    } 
+      // check if we found it
+      alreadyExistsInCart = (existingCartItem !== undefined);
+    }
 
-    if(alreadyExistsInCart){
-      //increment the quantity
+    if (alreadyExistsInCart) {
+      // increment the quantity
       existingCartItem.quantity++;
-    }else {
-      //add to cart item array
+    } else {
+      // add to cart item array
       this.cartItems.push(theCartItem);
     }
 
     this.calculateTotalPrice();
   }
-  
-  calculateTotalPrice() {
-    let totalPriceValue: number = 0;
-    let totalQuantityValue: number = 0;
 
-    for(let currentCartItem of this.cartItems){
-      totalPriceValue += currentCartItem.quantity * currentCartItem.unitPrice;
+  calculateTotalPrice() {
+    let totalPriceValue = 0;
+    let totalQuantityValue = 0;
+
+    for (const currentCartItem of this.cartItems) {
+      totalPriceValue += currentCartItem.quantity * currentCartItem.price;
       totalQuantityValue += currentCartItem.quantity;
     }
 
     console.log(`Total price: ${totalPriceValue}, Total quantity: ${totalQuantityValue}`);
-    
+
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
   }
 
-  decrementQuantity(cartItem: CartItem){
+  decrementQuantity(cartItem: CartItem) {
     cartItem.quantity--;
 
     if (cartItem.quantity === 0) {
       this.remove(cartItem);
-    }else {
+    } else {
       this.calculateTotalPrice();
     }
   }
 
-  remove(cartItem: CartItem){
+  remove(cartItem: CartItem) {
     const itemIndex = this.cartItems
                           .findIndex(
                             tempCartItem => tempCartItem.id === cartItem.id

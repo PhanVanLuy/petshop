@@ -24,7 +24,7 @@ public class ProductController {
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(productService.getProducts(), HttpStatus.OK);
     }
-    @GetMapping(value = "product/{id}")
+    @GetMapping(value = "products/{id}")
     public ResponseEntity<ProductEntity> getProductById(@PathVariable(value = "id") Integer productId) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.getProductById(productId));
     }
@@ -33,13 +33,13 @@ public class ProductController {
         return productService.saveProduct(product);
     }
 
-    @PutMapping("/product/{id}")
+    @PutMapping("/products/{id}")
     public ResponseEntity<ProductEntity> updateProduct(@PathVariable(value = "id") Integer productId,
                                                  @RequestBody ProductEntity productDetails) throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.updateProduct(productDetails, productId));
     }
 
-    @DeleteMapping("/product/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<Boolean> deleteProduct(@PathVariable(value = "id") Integer productId)
             throws ResourceNotFoundException {
         return ResponseEntity.ok(productService.deleteProduct(productId));

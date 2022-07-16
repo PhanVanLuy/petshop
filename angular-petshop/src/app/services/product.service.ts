@@ -7,6 +7,7 @@ import {map} from 'rxjs/operators';
 // @ts-ignore
 import {ReviewsSummary} from '../models/product/reviews-summary';
 import {HttpClient} from "@angular/common/http";
+import {ShortProduct} from "../models/product/short-product";
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ import {HttpClient} from "@angular/common/http";
 export class ProductService {
 
     products: Map<string, Product> = new Map<string, Product>();
-    // shortProducts: Map<string, ShortProduct> = new Map<string, ShortProduct>();
+    shortProducts: Map<string, ShortProduct> = new Map<string, ShortProduct>();
     private baseUrl = 'http://localhost:8080/api/v1/products';
 
     constructor(

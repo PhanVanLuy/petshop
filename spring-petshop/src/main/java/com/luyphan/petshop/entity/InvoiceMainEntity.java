@@ -20,7 +20,7 @@ public class InvoiceMainEntity {
     @Column(name="id")
     private Integer id;
 
-    @Column(name = "status")
+    @Column(name = "status")//Confirm->shipping->delivered
     private String status;
 
     @Column(name = "timestamp")

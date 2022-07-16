@@ -1,5 +1,5 @@
 <div class="row">
-    
+
     <div class="col-md-3">
         <!-- category component -->
         <app-book-category></app-book-category>
@@ -15,17 +15,17 @@
                             <tr>
                                 <th width="20%">Product Image</th>
                                 <th width="50%">Product Detail</th>
-                                <th width="30%"></th>
+                                <th width="30%">Quantity</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let cartItem of cartItems">
                                 <td>
-                                    <img [src]="cartItem.imageUrl" class="img-responsive" width="150" height="200" />
+                                    <img  [src]="cartItem.image" class="img-responsive"  height="200" />
                                 </td>
                                 <td>
                                     <p>{{ cartItem.name }}</p>
-                                    <p>{{ cartItem.unitPrice | currency: 'INR'}}</p>
+                                    <p>{{ cartItem.price | currency: 'VND'}}</p>
                                 </td>
                                 <td>
                                     <div class="row">
@@ -46,8 +46,8 @@
                                             </button>
                                         </div>
                                         <div class="col-md-12 mt-2">
-                                            <p>Subtotal: {{ cartItem.quantity * cartItem.unitPrice | currency: 'INR'}}</p>
-                                        </div> 
+                                            <p>Subtotal: {{ cartItem.quantity * cartItem.price | currency: 'VND'}}</p>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -56,7 +56,7 @@
                                 <td class="font-weight-bold">
                                     <p>Total quantity: {{totalQuantity}}</p>
                                     <p>Shipping: FREE</p>
-                                    <p>Total Price: {{ totalPrice | currency: 'INR' }}</p>
+                                    <p>Total Price: {{ totalPrice | currency: 'VND' }}</p>
                                     <a routerLink="/checkout" class="btn btn-primary">Checkout</a>
                                 </td>
                             </tr>
@@ -69,5 +69,5 @@
             </div>
         </div>
     </div>
-    
+
 </div>

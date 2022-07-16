@@ -4,23 +4,23 @@ import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'app-book-category',
-  templateUrl: './book-category.component.html',
-  styleUrls: ['./book-category.component.css']
+  templateUrl: './product-category.component.html',
+  styleUrls: ['./product-category.component.css']
 })
-export class BookCategoryComponent implements OnInit {
+export class ProductCategoryComponent implements OnInit {
 
   bookCategories: ProductCategory[];
 
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
-    // this.listBookCategories();
+    this.listBookCategories();
   }
 
   listBookCategories() {
-    // this.productService.getBookCategories().subscribe(
-    //   data => this.bookCategories = data
-    // );
+    this.productService.getBookCategories().subscribe(
+      data => this.bookCategories = data
+    );
   }
 
 }

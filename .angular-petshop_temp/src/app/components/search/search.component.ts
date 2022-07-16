@@ -13,8 +13,7 @@ export class SearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  searchBooks(keyword: string) {
-    console.log('keyword', keyword);
+  searchProducts(keyword: string) {
     this.router.navigateByUrl('/search/' + keyword);
   }
 }

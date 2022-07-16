@@ -11,9 +11,9 @@
         <div class="row">
 
             <div class="col-md-8">
-                
+
                 <form [formGroup]="checkoutFormGroup" (ngSubmit)="onSubmit()">
-                    
+
                     <!-- Customer info -->
                     <fieldset class="scheduler-border">
                         <legend class="scheduler-border"><h3>Cusomter</h3></legend>
@@ -173,12 +173,12 @@
                                 <div class="col-md-6 mb-3">
                                     <label for="cc-name">Name on card</label>
                                     <input type="text" formControlName="nameOnCard" class="form-control" />
-                                    
+
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="cc-number">Credit card number</label>
                                     <input type="text" formControlName="cardNumber" class="form-control" />
-                            
+
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -225,11 +225,11 @@
                                     <h6 class="my-0">{{cartItem.name}}</h6>
                                     <small class="text-muted">Quantity (x{{cartItem.quantity}})</small>
                                 </div>
-                                <span class="text-muted">{{cartItem.quantity * cartItem.unitPrice | currency: 'INR'}}</span>
+                                <span class="text-muted">{{cartItem.quantity * cartItem.price | currency: 'VND'}}</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between">
-                                <span>Total (INR)</span>
-                                <strong>{{totalPrice | currency: 'INR'}}</strong>
+                                <span>Total (VND)</span>
+                                <strong>{{totalPrice | currency: 'VND'}}</strong>
                             </li>
                         </ul>
                     </div>

@@ -5,8 +5,6 @@ import com.luyphan.petshop.entity.ProductEntity;
 import com.luyphan.petshop.repository.ProductRepository;
 import com.luyphan.petshop.service.ProductService;
 import org.apache.logging.log4j.LogManager;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,7 @@ import java.util.List;
 
 @Service
 public class ProductServiceImp implements ProductService {
-    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(ProductEntity.class);
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(ProductServiceImp.class);
     final
     ProductRepository productRepository;
 
@@ -24,11 +22,6 @@ public class ProductServiceImp implements ProductService {
         this.productRepository = productRepository;
     }
 
-
-    @Override
-    public Page<ProductEntity> findAll(Pageable pageable) {
-        return productRepository.findAll(pageable);
-    }
 
     public List<ProductEntity> getProducts(){
         List<ProductEntity> productInfos;
@@ -39,12 +32,6 @@ public class ProductServiceImp implements ProductService {
             LOGGER.error("ERROR: Get list product");
             return null;
         }
-    }
-
-    @Override
-    public Page<ProductEntity> findAll(Integer categoryId, Pageable pageable) {
-
-        return productRepository.findAll(pageable);
     }
 
     @Override
@@ -77,10 +64,10 @@ public class ProductServiceImp implements ProductService {
         try {
             productRepository.delete(product);
         } catch (Exception e) {
-            LOGGER.error("Error deleteStudent log message");
+            LOGGER.error("Error delete product log message");
             return false;
         }
-        LOGGER.info("Info deleteStudent log message");
+        LOGGER.info("Info delete product log message");
         return  true;
     }
 

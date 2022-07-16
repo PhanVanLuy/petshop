@@ -1,0 +1,17 @@
+<!--suppress ALL -->
+<div class="toasts-position">
+    <ngb-toast
+        *ngFor="let toast of toastService.toasts"
+        [autohide]="true"
+        [delay]="3000"
+        [class]="toast.customClass"
+        (hide)="toastService.remove(toast)">
+        <ng-template ngbToastHeader class="p-2">
+            <mat-icon>notifications</mat-icon>
+            <strong class="mr-auto">{{toast.headerTitle}}</strong>
+        </ng-template>
+        <div class="p-2">
+            <p>{{toast.text}}</p>
+        </div>
+    </ngb-toast>
+</div>

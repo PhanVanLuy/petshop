@@ -7,12 +7,12 @@ import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-book-details',
-  templateUrl: './book-details.component.html',
-  styleUrls: ['./book-details.component.css']
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./product-details.component.css']
 })
-export class BookDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit {
 
-  book: Product = new Product();
+  product: Product = new Product();
 
   constructor(private activatedRoute: ActivatedRoute,
               private productService: ProductService,
@@ -31,14 +31,14 @@ export class BookDetailsComponent implements OnInit {
 
     this.productService.get(id).subscribe(
       data => {
-        this.book = data;
+        this.product = data;
       }
     );
   }
 
   addToCart() {
-    console.log(`book name: ${this.book.name}, and price: ${this.book.price}`);
-    const cartItem = new CartItem(this.book);
+    console.log(`book name: ${this.product.name}, and price: ${this.product.price}`);
+    const cartItem = new CartItem(this.product);
     this.cartService.addToCart(cartItem);
   }
 
