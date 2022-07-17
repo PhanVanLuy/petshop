@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -45,7 +44,7 @@ public class CategoryServiceImp implements CategoryService {
         return categoryRepository.save(new CategoryEntity(categoryRequest));
     }
     @Override
-    public CategoryEntity updateCategory(@Valid CategoryEntity categoryDetail, Integer categoryId){
+    public CategoryEntity updateCategory( CategoryEntity categoryDetail, Integer categoryId){
         CategoryEntity category =categoryRepository.findById(categoryId).orElseThrow(()
                 -> new ResourceNotFoundException("Category not found for this id: "+categoryId));
         category.setName(categoryDetail.getName());

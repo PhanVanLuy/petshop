@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -33,6 +32,28 @@ public class ProductServiceImp implements ProductService {
             return null;
         }
     }
+    public List<ProductEntity> getProductSearched(String keyword){
+        List<ProductEntity> productInfos;
+        try{
+            productInfos = productRepository.search(keyword);
+            return productInfos;
+        }catch (Exception e){
+            LOGGER.error("ERROR: Get list product search ");
+            return null;
+        }
+    }
+
+    public List<ProductEntity> getProductByCategoryId(Integer categoryId){
+        List<ProductEntity> productInfos;
+        try{
+            productInfos = productRepository.getProductEntitiesByCategoryType(categoryId);
+            return productInfos;
+        }catch (Exception e){
+            LOGGER.error("ERROR: Get list product by categoryId ");
+            return null;
+        }
+    }
+
 
     @Override
     public ProductEntity getProductById(Integer productId){
@@ -45,7 +66,7 @@ public class ProductServiceImp implements ProductService {
         return productRepository.save(new ProductEntity(product));
     }
     @Override
-    public ProductEntity updateProduct(@Valid ProductEntity productDetail, Integer productId){
+    public ProductEntity updateProduct( ProductEntity productDetail, Integer productId){
         ProductEntity product =productRepository.findById(productId).orElseThrow(()
                 -> new ResourceNotFoundException("Product not found for this id: "+productId));
         product.setCategoryType(productDetail.getCategoryType());
@@ -70,5 +91,7 @@ public class ProductServiceImp implements ProductService {
         LOGGER.info("Info delete product log message");
         return  true;
     }
+
+
 
 }

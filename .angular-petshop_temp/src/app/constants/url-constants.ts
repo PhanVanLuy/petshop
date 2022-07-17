@@ -4,18 +4,21 @@ export class UrlConstants {
     public static SHOP_ALL = 'shop/all';
     public static SHOP_CATEGORY = 'shop/:category';
     public static CART_DETAIL = 'cart-details';
-    public static CATEGORY_ID = 'category/:id';
+    public static CATEGORY_ID = 'category/:cateId';
     public static PROFILE = 'profile';
     public static REFUND = 'refund';
     public static WISH_LIST = 'wish-list';
     public static CHECKOUT = 'checkout';
     public static CHECKOUT_ID = 'checkout/:id';
-    public static PRODUCT_ID = 'product/:id';
+    public static PRODUCT_ID = 'products/:id';
     public static PRODUCTS = 'products';
+    public static SEARCH_KEYWORD = 'search/:keyword';
+    public static SEARCH = 'search/';
     public static ORDER_TRACKING = 'order-tracking';
     public static ORDER_TRACKING_ID = 'order-tracking/:id';
     public static HISTORY = 'history';
     public static LOGIN = 'login';
+    public static HOME = 'http://localhost:4200/products';
 
 
     /*---------------------INFORMATION-----------------------------------*/
@@ -30,7 +33,6 @@ export class UrlConstants {
     public static ABOUT_US = 'about-us';
     public static VENDOR_DETAILS = 'vendor-details';
     public static DELIVERY_DETAILS = 'delivery-details';
-    public static SEARCH = 'search';
 
 
     /*---------------------COMMON-----------------------------------*/

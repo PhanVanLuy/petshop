@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from '../common/product';
 import {ProductCategory} from '../common/product-category';
+import {UrlConstants} from "../constants/url-constants";
 
 @Injectable({
   providedIn: 'root'
@@ -11,15 +12,10 @@ import {ProductCategory} from '../common/product-category';
 export class ProductService {
 
   private baseUrl = 'http://localhost:8080/api/v1';
-  private categoryUrl = 'http://localhost:8080/api/v1/categories';
 
   constructor(private httpClient: HttpClient) {
   }
 
-  // getBooks(theCategoryId: number): Observable<Product[]> {
-  //   const searchUrl = `${this.baseUrl}/search/categoryid?id=${theCategoryId}`;
-  //   return this.getProductList(searchUrl);
-  // }
   getProduct(): Observable<Product[]> {
     const searchUrl = `${this.baseUrl}`;
     return this.getProductList();
@@ -30,31 +26,22 @@ export class ProductService {
   //   return this.httpClient.get<GetResponseProducts>(searchUrl);
   // }
   //
-  getBookCategories(): Observable<any> {
+  getCategories(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/categories`);
   }
   //
-  searchBooks(keyword: string, currentPage: number, pageSize: number): Observable<GetResponseProducts> {
-    const searchUrl = `${this.baseUrl}/search/searchbykeyword?name=${keyword}&page=${currentPage}&size=${pageSize}`;
-    // return this.getProductList(searchUrl);
-    return this.httpClient.get<GetResponseProducts>(searchUrl);
+  searchProducts(keyword: string, ): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/search/${keyword}`);
   }
 
-  //
-  // private getProductList(searchUrl: string): Observable<Product[]> {
-  //   return this.httpClient.get<GetResponseProducts>(searchUrl).pipe(
-  //     map(response => response._embedded.products)
-  //   );
-  // }
+  getByCateId(cateId: string, ): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/category/${cateId}`);
+  }
 
   get(productId: number): Observable<Product> {
     const productDetailsUrl = `${this.baseUrl}/${productId}`;
     return this.httpClient.get<Product>(productDetailsUrl);
   }
-
-  // getProduct(id: number): Observable<any> {
-  //   return this.httpClient.get(`${this.baseUrl}/${id}`);
-  // }
 
   getProductList(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/products`);

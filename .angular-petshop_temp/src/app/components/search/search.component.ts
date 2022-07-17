@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {UrlConstants} from '../../constants/url-constants';
+import {isNull} from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-search',
@@ -8,12 +10,17 @@ import { Router } from '@angular/router';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
   }
 
   searchProducts(keyword: string) {
-    this.router.navigateByUrl('/search/' + keyword);
+    if (keyword.length !== 0) {
+      this.router.navigateByUrl('/search/' + keyword);
+    } else {
+      this.router.navigateByUrl(UrlConstants.PRODUCTS).then();
+    }
   }
 }

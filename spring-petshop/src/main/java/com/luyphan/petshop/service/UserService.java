@@ -5,7 +5,6 @@ import com.luyphan.petshop.entity.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import javax.validation.Valid;
 import java.util.List;
 
 
@@ -20,7 +19,7 @@ public interface UserService {
 
     UserEntity saveUser(AddUserRequest user);
 
-    UserEntity updateUser(@Valid UserEntity user, Integer UserId);
+    UserEntity updateUser( UserEntity user, Integer UserId);
 
     Boolean deleteUser(Integer UserId);
 }

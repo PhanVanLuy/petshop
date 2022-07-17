@@ -18,6 +18,15 @@ public class AddProductRequest {
     private UnitEntity unit;
     private Integer stock;
     private String image;
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public Integer getCategoryType() {
         return categoryType;

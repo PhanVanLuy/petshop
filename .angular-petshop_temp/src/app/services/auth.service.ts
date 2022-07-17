@@ -1,79 +1,29 @@
-import {Injectable} from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import {Observable} from 'rxjs';
 import {User} from '../models/user';
-import {Observable, of} from 'rxjs';
-import {switchMap} from 'rxjs/operators';
-import {ToastService} from '../common/toasts/toast.service';
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class AuthService {
 
-    user: Observable<User>;
+  user: User ;
+  constructor(private router: Router ) {
+  }
+  private getInformation(field: string): string {
+    return this.user ? this.user.information ? this.user.information[field] : null : null;
+  }
+  // private updateUserInformation() {
+  //   this.informationForm.controls.firstName.setValue(this.getInformation('firstName'));
+  //   this.informationForm.controls.lastName.setValue(this.getInformation('lastName'));
+  //   this.informationForm.controls.company.setValue(this.getInformation('company'));
+  //   this.informationForm.controls.address.setValue(this.getInformation('address'));
+  //   this.informationForm.controls.apartment.setValue(this.getInformation('apartment'));
+  //   this.informationForm.controls.city.setValue(this.getInformation('city'));
+  //   this.informationForm.controls.country.setValue(this.getInformation('country'));
+  //   this.informationForm.controls.postalCode.setValue(this.getInformation('postalCode'));
+  //   this.informationForm.controls.phone.setValue(this.getInformation('phone'));
+  // }
 
-    constructor(
-        private toastService: ToastService
-    ) {
-        // this.user = this.authentication.authState.pipe(
-        //     switchMap(user => {
-        //         if (user) {
-        //             return this.firestore.collection(FirestoreConstants.USERS).doc<User>(user.uid).valueChanges();
-        //         } else {
-        //             return of(null);
-        //         }
-        //     })
-        // );
-    }
-
-    async googleSignIn() {
-        // const provider = new auth.GoogleAuthProvider();
-        // return this.authentication.auth.signInWithPopup(provider).then(credential => {
-        //     this.toastService.showSuccess('Login successfully');
-        //     return this.updateUserData(credential.user);
-        // }).catch(reason => {
-        //     this.toastService.showError(reason);
-        // });
-    }
-
-    async facebookSignIn() {
-        // const provider = new auth.FacebookAuthProvider();
-        // return this.authentication.auth.signInWithPopup(provider).then(credential => {
-        //     this.toastService.showSuccess('Login successfully');
-        //     return this.updateUserData(credential.user);
-        // }).catch(reason => {
-        //     this.toastService.showError(reason);
-        // });
-    }
-
-    // private updateUserData(user) {
-    //     const userRef: AngularFirestoreDocument<any> = this.firestore.collection(FirestoreConstants.USERS).doc(user.uid);
-    //
-    //     const data = {
-    //         uid: user.uid,
-    //         email: user.email,
-    //         displayName: user.displayName,
-    //         photoURL: user.photoURL,
-    //     };
-    //
-    //     return userRef.set(data, {merge: true});
-    //
-    // }
-
-    // public updateUserInformation(uid: string, informationValue: any) {
-    //     const userRef: AngularFirestoreDocument<any> = this.firestore.collection(FirestoreConstants.USERS).doc(uid);
-    //
-    //     const data = {
-    //         information: informationValue
-    //     };
-    //
-    //     return userRef.set(data, {merge: true});
-    // }
-    //
-    // signOut() {
-    //     this.authentication.auth.signOut().then(() => {
-    //         this.toastService.showSuccess('Logout successfully');
-    //     }).catch(() => {
-    //         this.toastService.showError('Something wrong. Try again!!!');
-    //     });
-    // }
 }

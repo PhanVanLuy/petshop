@@ -36,6 +36,17 @@ public class ProductEntity {
     @Column(name = "first_image")
     private String image;
 
+    @Column(name = "name")
+    private String name;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "product")
     private Set<ProductImageEntity> listImage = new HashSet<>();
 
@@ -132,6 +143,7 @@ public class ProductEntity {
         this.unit = productEntity.getUnit();
         this.stock = productEntity.getStock();
         this.image = productEntity.getImage();
+        this.name = productEntity.getName();
     }
 
     public ProductEntity(Integer id,
@@ -142,11 +154,13 @@ public class ProductEntity {
                          UnitEntity unit,
                          Integer stock,
                          String image,
+                         String name,
                          Set<ProductImageEntity> listImage,
                          Set<ReviewEntity> listReview,
                          Set<CartEntity> listCart,
                          Set<InvoiceDetailEntity> listProduct) {
         this.id = id;
+        this.name = name;
         this.categoryType = categoryType;
         this.description = description;
         this.price = price;

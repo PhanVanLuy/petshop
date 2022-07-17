@@ -1,0 +1,8 @@
+.category-name{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.card-body{
+  max-height: 300px;
+}

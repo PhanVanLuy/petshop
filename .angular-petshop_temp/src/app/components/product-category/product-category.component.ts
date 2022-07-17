@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductCategory } from '../../common/product-category';
 import { ProductService } from '../../services/product.service';
+import {Observable} from 'rxjs';
+import {UrlConstants} from '../../constants/url-constants';
 
 @Component({
   selector: 'app-book-category',
@@ -9,18 +11,21 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductCategoryComponent implements OnInit {
 
-  bookCategories: ProductCategory[];
+  productCategories!: ProductCategory[];
+  URL: UrlConstants;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              ) { }
 
   ngOnInit() {
-    this.listBookCategories();
+    this.listCategories();
   }
 
-  listBookCategories() {
-    this.productService.getBookCategories().subscribe(
-      data => this.bookCategories = data
+  listCategories() {
+    this.productService.getCategories().subscribe(
+      data => {
+        this.productCategories = data;
+      }
     );
   }
-
 }

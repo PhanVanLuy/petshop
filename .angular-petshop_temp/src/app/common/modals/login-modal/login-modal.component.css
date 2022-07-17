@@ -10,4 +10,9 @@
   .h-custom-2 {
     height: 100%;
   }
+
+  .mat-error{
+    color: red;
+    margin: 50px 10px;
+  }
 }

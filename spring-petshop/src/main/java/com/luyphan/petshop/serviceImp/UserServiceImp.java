@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -57,7 +56,7 @@ public class UserServiceImp implements UserService {
         return userRepository.save(new UserEntity(user));
     }
     @Override
-    public UserEntity updateUser(@Valid UserEntity userDetail, Integer id){
+    public UserEntity updateUser( UserEntity userDetail, Integer id){
         UserEntity user =userRepository.findById(id).orElseThrow(()
                 -> new ResourceNotFoundException("User not found for this id: "+id));
         user.setActive(userDetail.getActive());

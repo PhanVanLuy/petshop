@@ -14,16 +14,19 @@ import {ProductDetailsComponent} from './components/product-details/product-deta
 import {CartStatusComponent} from './components/cart-status/cart-status.component';
 import {CartDetailsComponent} from './components/cart-details/cart-details.component';
 import {CheckoutComponent} from './components/checkout/checkout.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {LoginModalComponent} from './common/modals/login-modal/login-modal.component';
 import {UrlConstants} from './constants/url-constants';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { FooterComponent } from './common/core/footer/footer.component';
 // client side paging
 // import { JwPaginationComponent } from 'jw-angular-pagination';
 
 
 const routes: Routes = [
   {
-    path: 'checkout',
+    path: UrlConstants.CHECKOUT,
     component: CheckoutComponent
   },
   {
@@ -43,8 +46,13 @@ const routes: Routes = [
     component: ProductListComponent
   },
   {
-    path: 'search/:keyword',
+    path: UrlConstants.SEARCH_KEYWORD,
     component: ProductListComponent
+  },
+  {
+    path: UrlConstants.SEARCH,
+    redirectTo: UrlConstants.PRODUCTS,
+    pathMatch: 'full'
   },
   {
     path: UrlConstants.CATEGORY_ID,
@@ -72,7 +80,8 @@ const routes: Routes = [
     CartStatusComponent,
     CartDetailsComponent,
     CheckoutComponent,
-    LoginModalComponent
+    LoginModalComponent,
+    FooterComponent
     // client side paging
     // JwPaginationComponent
   ],
@@ -81,7 +90,10 @@ const routes: Routes = [
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule
   ],
   providers: [
     ProductService

@@ -6,6 +6,7 @@ import { NgbPaginationConfig } from '@ng-bootstrap/ng-bootstrap';
 import { CartService } from 'src/app/services/cart.service';
 import { CartItem } from 'src/app/common/cart-item';
 import {Observable} from 'rxjs';
+import {getMatIconFailedToSanitizeLiteralError} from '@angular/material/icon';
 
 @Component({
   selector: 'app-book-list',
@@ -19,6 +20,7 @@ export class ProductListComponent implements OnInit {
   currentCategoryId = 1;
   previousCategoryId = 1;
   searchMode = false;
+  categoryMode = false;
 
   // properties for client side paging
 
@@ -40,21 +42,25 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(() => {
-      this.listBooks();
+      this.listProducts();
     });
   }
 
-  listBooks() {
+  listProducts() {
     this.searchMode = this.activatedRoute.snapshot.paramMap.has('keyword');
-
-    // if (this.searchMode) {
-    //   // do search work
-    //   this.handleSearchBooks();
-    // } else {
-    //   // display books based on category
-    //   this.handleListBooks();
-    // }
-    this.handleListBooks();
+    this.categoryMode = this.activatedRoute.snapshot.paramMap.has('cateId');
+    if (this.searchMode) {
+      this.categoryMode = false;
+      // do search work
+      this.handleSearchProducts();
+    } else {
+      // display books based on category
+      this.handleListBooks();
+    }
+    if (this.categoryMode) {
+      this.handleGetProductByCategory();
+    }
+    // this.handleListBooks();
   }
 
   handleListBooks() {
@@ -71,36 +77,23 @@ export class ProductListComponent implements OnInit {
 
     this.previousCategoryId = this.currentCategoryId;
 
-    console.log('current page size', this.currentPage - 1 );
-
     this.products = this.productService.getProductList();
-    console.log('product' + this.products);
-    // console.log(this.productService.getProduct().subscribe(this.processResult()));
   }
 
-  handleSearchBooks() {
+  handleSearchProducts() {
     const keyword: string = this.activatedRoute.snapshot.paramMap.get('keyword');
-
-    this.productService.searchBooks(keyword,
-                                  this.currentPage - 1,
-                                  this.pageSize)
-                                  .subscribe(this.processResult());
+    this.products = this.productService.searchProducts(keyword);
+  }
+  handleGetProductByCategory() {
+    const categoryId: string = this.activatedRoute.snapshot.paramMap.get('cateId');
+    this.products = this.productService.getByCateId(categoryId);
   }
 
   // client side paging and server side paging
   updatePageSize(pageSize: number) {
     this.pageSize = pageSize;
     this.currentPage = 1;
-    this.listBooks();
-  }
-
-  processResult() {
-    return data => {
-      this.products = data._embedded.products;
-      this.currentPage = data.page.number + 1;
-      this.totalRecords = data.page.totalElements;
-      this.pageSize = data.page.size;
-    };
+    this.listProducts();
   }
 
   addToCart(product: Product) {

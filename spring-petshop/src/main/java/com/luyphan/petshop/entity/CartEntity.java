@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "cart_entity")
+@Table(name = "cart")
 public class CartEntity {
 
     @EmbeddedId

@@ -9,7 +9,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -45,7 +44,7 @@ public class InformationServiceImp implements InformationService {
         return informationRepository.save(new InformationEntity(info));
     }
     @Override
-    public InformationEntity updateInfo(@Valid InformationEntity infoDetail, Long infoId){
+    public InformationEntity updateInfo( InformationEntity infoDetail, Long infoId){
         InformationEntity info = informationRepository.findById(infoId).orElseThrow(()
                 -> new ResourceNotFoundException("Info not found for this id: "+infoId));
         info.setAddress(infoDetail.getAddress());
