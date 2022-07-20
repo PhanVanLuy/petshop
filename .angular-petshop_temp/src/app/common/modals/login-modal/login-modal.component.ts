@@ -5,6 +5,8 @@ import {Subject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import {UrlConstants} from '../../../constants/url-constants';
 import {HttpClient} from '@angular/common/http';
+import {userError} from '@angular/compiler-cli/src/transformers/util';
+import {map} from 'rxjs-compat/operator/map';
 
 @Component({
     selector: 'app-login-modal',
@@ -13,47 +15,29 @@ import {HttpClient} from '@angular/common/http';
 })
 export class LoginModalComponent implements OnInit {
   public loginValid = true;
-  public email = '';
-  public password = '';
 
   private readonly returnUrl: string;
   loginForm: FormGroup;
   url = UrlConstants.HOME;
-  private baseUrl = 'http://localhost:8080/api/v1';
+  forgot = UrlConstants.FORGOT_PASSWORD;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
+    private auth: AuthService,
     private http: HttpClient
   ) {
     this.returnUrl = this.activatedRoute.snapshot.queryParams.returnUrl || UrlConstants.PRODUCTS;
   }
   ngOnInit() {
-    sessionStorage.setItem('token', '');
     this.loginForm = new FormGroup({
       email: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
     });
   }
-
   login() {
-    this.email = this.loginForm.get('email').value;
-    this.password = this.loginForm.get('password').value;
-    const result = this.http.post(`${this.baseUrl}/login`, {
-      email: this.email,
-      password: this.password
-    }).subscribe(isValid => {
-      if (isValid) {
-        sessionStorage.setItem(
-          'token',
-          btoa(this.email + ':' + this.password)
-        );
-        this.router.navigateByUrl('/products');
-      } else {
-        alert('Authentication failed.');
-      }
-    });
+    this.auth.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
   }
+
 
 }

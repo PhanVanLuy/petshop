@@ -22,4 +22,10 @@ public interface UserService {
     UserEntity updateUser( UserEntity user, Integer UserId);
 
     Boolean deleteUser(Integer UserId);
+
+    void updateResetPasswordToken(String token, String email);
+
+    UserEntity getByResetPasswordToken(String token);
+
+    void updatePassword(UserEntity user, String newPassword);
 }

@@ -38,19 +38,6 @@ public class BasicAuthConfiguration
         httpSecurity.sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
-
-//    @Override
-//    protected void configure(HttpSecurity http)
-//            throws Exception {
-//        http.csrf().disable()
-//                .authorizeRequests()
-//                .antMatchers("/login").permitAll()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic();
-//    }
-
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();

@@ -21,12 +21,12 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe(
       () => {
-        this.getBookInfo();
+        this.getProductInfo();
       }
     );
   }
 
-  getBookInfo() {
+  getProductInfo() {
     const id: number = +this.activatedRoute.snapshot.paramMap.get('id');
 
     this.productService.get(id).subscribe(
@@ -37,7 +37,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addToCart() {
-    console.log(`book name: ${this.product.name}, and price: ${this.product.price}`);
+    console.log(`Product name: ${this.product.name}, and price: ${this.product.price}`);
     const cartItem = new CartItem(this.product);
     this.cartService.addToCart(cartItem);
   }

@@ -14,7 +14,7 @@
             <div class="col-12 col-md-4">
 
                 <div class="thumbnail">
-                    <img src="{{product.image}}" width="250" height="300" alt="book" />
+                    <img src="{{product.image}}" width="100%" height="100%" alt="book" />
                 </div>
 
             </div>
@@ -31,7 +31,7 @@
                 <h4>Price: <strong>{{product.price | currency: 'VND'}}</strong></h4>
                 <hr/>
 
-                <h6>Qty. Available: {{product.stock}}</h6>
+                <h6>  Available: {{product.stock}}</h6>
                 <hr/>
 
                 <a routerLink="/products" class="btn btn-success">

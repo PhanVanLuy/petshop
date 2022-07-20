@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-bookstore": {
+    "angular-petshop": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/angular-bookstore",
+            "outputPath": "dist/angular-petshop",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -64,18 +64,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "angular-bookstore:build"
+            "browserTarget": "angular-petshop:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "angular-bookstore:build:production"
+              "browserTarget": "angular-petshop:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-bookstore:build"
+            "browserTarget": "angular-petshop:build"
           }
         },
         "test": {
@@ -116,16 +116,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "angular-bookstore:serve"
+            "devServerTarget": "angular-petshop:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "angular-bookstore:serve:production"
+              "devServerTarget": "angular-petshop:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "angular-bookstore"
+  "defaultProject": "angular-petshop"
 }

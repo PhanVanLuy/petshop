@@ -3,8 +3,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {Product} from '../common/product';
-import {ProductCategory} from '../common/product-category';
-import {UrlConstants} from "../constants/url-constants";
 
 @Injectable({
   providedIn: 'root'
@@ -21,11 +19,6 @@ export class ProductService {
     return this.getProductList();
   }
 
-  // getBooksPaginate(theCategoryId: number, currentPage: number, pageSize: number): Observable<GetResponseProducts> {
-  //   const searchUrl = `${this.baseUrl}/search/categoryid?id=${theCategoryId}&page=${currentPage}&size=${pageSize}`;
-  //   return this.httpClient.get<GetResponseProducts>(searchUrl);
-  // }
-  //
   getCategories(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/categories`);
   }
@@ -39,7 +32,7 @@ export class ProductService {
   }
 
   get(productId: number): Observable<Product> {
-    const productDetailsUrl = `${this.baseUrl}/${productId}`;
+    const productDetailsUrl = `${this.baseUrl}/products/${productId}`;
     return this.httpClient.get<Product>(productDetailsUrl);
   }
 

@@ -20,6 +20,10 @@ import {UrlConstants} from './constants/url-constants';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FooterComponent } from './common/core/footer/footer.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from "@angular/material/input";
+import { ForgotPasswordComponent } from './common/modals/forgot-password/forgot-password.component';
 // client side paging
 // import { JwPaginationComponent } from 'jw-angular-pagination';
 
@@ -32,6 +36,14 @@ const routes: Routes = [
   {
     path: UrlConstants.LOGIN,
     component: LoginModalComponent
+  },
+  {
+    path: UrlConstants.PROFILE,
+    component: ProfileComponent
+  },
+  {
+    path: UrlConstants.FORGOT_PASSWORD,
+    component: ForgotPasswordComponent
   },
   {
     path: UrlConstants.CART_DETAIL,
@@ -81,7 +93,9 @@ const routes: Routes = [
     CartDetailsComponent,
     CheckoutComponent,
     LoginModalComponent,
-    FooterComponent
+    FooterComponent,
+    ProfileComponent,
+    ForgotPasswordComponent
     // client side paging
     // JwPaginationComponent
   ],
@@ -93,7 +107,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     FormsModule,
     BrowserAnimationsModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule
   ],
   providers: [
     ProductService

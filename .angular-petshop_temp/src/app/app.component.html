@@ -23,10 +23,10 @@
 
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="#">Logout </a>
+          <a class="nav-link" *ngIf= "auth.isUserLogin()"  (click)="auth.logout()">Logout</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="login()">Login </a>
+        <li class="nav-item" >
+          <a class="nav-link" *ngIf= "!auth.isUserLogin()"  (click)="login()">Login</a>
         </li>
       </ul>
     </nav>

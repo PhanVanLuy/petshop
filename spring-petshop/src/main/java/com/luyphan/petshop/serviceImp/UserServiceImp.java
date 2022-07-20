@@ -9,11 +9,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class UserServiceImp implements UserService {
     private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(UserServiceImp.class);
     final UserRepository userRepository;
@@ -77,6 +80,29 @@ public class UserServiceImp implements UserService {
         }
         LOGGER.info("Info delete user log message");
         return  true;
+    }
+
+    public void updateResetPasswordToken(String token, String email) throws ResourceNotFoundException {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setResetPasswordToken(token);
+            userRepository.save(user);
+        } else {
+            throw new ResourceNotFoundException("Could not find any user with the email " + email);
+        }
+    }
+
+    public UserEntity getByResetPasswordToken(String token) {
+        return userRepository.findByResetPasswordToken(token);
+    }
+
+    public void updatePassword(UserEntity user, String newPassword) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encodedPassword);
+
+        user.setResetPasswordToken(null);
+        userRepository.save(user);
     }
 
 }

@@ -8,24 +8,25 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartStatusComponent implements OnInit {
 
-  totalPrice: number = 0;
-  totalQuantity: number = 0;
+  totalPrice = 0;
+  totalQuantity = 0;
 
+  // tslint:disable-next-line:variable-name
   constructor(private _cartService: CartService) { }
 
   ngOnInit() {
     this.updateCartStatus();
   }
-  
+
   updateCartStatus() {
-    //subscribe to the events
+    // subscribe to the events
     this._cartService.totalPrice.subscribe(
       data => this.totalPrice = data
-    ) 
-    
+    );
+
     this._cartService.totalQuantity.subscribe(
       data => this.totalQuantity = data
-    )
+    );
   }
 
 

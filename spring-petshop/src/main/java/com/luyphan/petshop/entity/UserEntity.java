@@ -34,6 +34,9 @@ public class UserEntity {
     @Column(name = "display_name")
     private String displayName;
 
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "uid")
     private Set<PaymentDetailEntity> listPayment = new HashSet<>();
 

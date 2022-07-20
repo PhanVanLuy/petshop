@@ -33,6 +33,7 @@ export class UrlConstants {
     public static ABOUT_US = 'about-us';
     public static VENDOR_DETAILS = 'vendor-details';
     public static DELIVERY_DETAILS = 'delivery-details';
+    public static FORGOT_PASSWORD = 'forgot-password';
 
 
     /*---------------------COMMON-----------------------------------*/
@@ -40,5 +41,7 @@ export class UrlConstants {
     public static NOT_FOUND = '**';
 
     public static SYMBOL = '/';
+
+    public  static LOCAL = 'http://localhost:8080/api/v1';
 
 }
