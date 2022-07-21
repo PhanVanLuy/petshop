@@ -71,4 +71,76 @@ public class UserEntity {
         this.listPayment = listPayment;
         this.listCart = listCart;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEntity role) {
+        this.role = role;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
+
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getResetPasswordToken() {
+        return resetPasswordToken;
+    }
+
+    public void setResetPasswordToken(String resetPasswordToken) {
+        this.resetPasswordToken = resetPasswordToken;
+    }
+
+    public Set<PaymentDetailEntity> getListPayment() {
+        return listPayment;
+    }
+
+    public void setListPayment(Set<PaymentDetailEntity> listPayment) {
+        this.listPayment = listPayment;
+    }
+
+    public Set<CartEntity> getListCart() {
+        return listCart;
+    }
+
+    public void setListCart(Set<CartEntity> listCart) {
+        this.listCart = listCart;
+    }
 }

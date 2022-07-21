@@ -24,6 +24,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from "@angular/material/input";
 import { ForgotPasswordComponent } from './common/modals/forgot-password/forgot-password.component';
+import { ResetPasswordComponent } from './common/modals/reset-password/reset-password.component';
 // client side paging
 // import { JwPaginationComponent } from 'jw-angular-pagination';
 
@@ -44,6 +45,9 @@ const routes: Routes = [
   {
     path: UrlConstants.FORGOT_PASSWORD,
     component: ForgotPasswordComponent
+  }, {
+    path: UrlConstants.RESET_PASSWORD,
+    component: ResetPasswordComponent
   },
   {
     path: UrlConstants.CART_DETAIL,
@@ -95,7 +99,8 @@ const routes: Routes = [
     LoginModalComponent,
     FooterComponent,
     ProfileComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ResetPasswordComponent
     // client side paging
     // JwPaginationComponent
   ],

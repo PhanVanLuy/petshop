@@ -12,6 +12,11 @@ plugins {
     id 'maven-publish'
 }
 
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 repositories {
     mavenLocal()
@@ -36,14 +41,15 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.7.0'
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
     compileOnly 'org.projectlombok:lombok:1.18.24'
-
-
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-freemarker'
+    implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
+    implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 }
 
 group = 'com.luyphan'
 version = '0.0.1-SNAPSHOT'
 description = 'Online pet Shop'
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
     publications {

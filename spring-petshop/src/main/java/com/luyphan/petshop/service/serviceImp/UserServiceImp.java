@@ -1,4 +1,4 @@
-package com.luyphan.petshop.serviceImp;
+package com.luyphan.petshop.service.serviceImp;
 
 import com.luyphan.petshop.controller.presentation.AddUserRequest;
 import com.luyphan.petshop.entity.UserEntity;

@@ -21,8 +21,7 @@ export class ForgotPasswordComponent implements OnInit {
     });
   }
   sendMail() {
-    console.log(`${UrlConstants.LOCAL}/forgot_password`);
-    return  this.http.post(`${UrlConstants.LOCAL}/forgot_password`, {
+    this.http.post(`${UrlConstants.LOCAL}/forgot_password`, {
         email: this.forgotPasswordForm.get('email').value
     });
   }
