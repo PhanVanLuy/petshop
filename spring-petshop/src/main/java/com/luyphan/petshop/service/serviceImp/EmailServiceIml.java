@@ -1,17 +1,19 @@
-package com.luyphan.petshop.serviceImp;
+package com.luyphan.petshop.service.serviceImp;
 
 import com.luyphan.petshop.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
-
+@Service
 public class EmailServiceIml implements EmailService {
     @Autowired
     private JavaMailSender mailSender;
+
     @Override
     public void sendEmail(String recipientEmail, String link)
             throws MessagingException, UnsupportedEncodingException {

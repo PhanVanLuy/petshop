@@ -34,6 +34,7 @@ export class UrlConstants {
     public static VENDOR_DETAILS = 'vendor-details';
     public static DELIVERY_DETAILS = 'delivery-details';
     public static FORGOT_PASSWORD = 'forgot-password';
+    public static RESET_PASSWORD = 'reset-password';
 
 
     /*---------------------COMMON-----------------------------------*/

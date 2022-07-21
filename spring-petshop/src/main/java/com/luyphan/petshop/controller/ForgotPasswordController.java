@@ -1,15 +1,17 @@
 package com.luyphan.petshop.controller;
 
 import com.luyphan.petshop.common.Utility;
+import com.luyphan.petshop.controller.response.CustomResponse;
 import com.luyphan.petshop.entity.UserEntity;
 import com.luyphan.petshop.service.EmailService;
 import com.luyphan.petshop.service.UserService;
 import net.bytebuddy.utility.RandomString;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,65 +25,61 @@ import java.io.UnsupportedEncodingException;
 @Controller
 @CrossOrigin
 public class ForgotPasswordController {
-
+    private static final org.apache.logging.log4j.Logger LOGGER = LogManager.getLogger(ForgotPasswordController.class);
     @Autowired
     private UserService userService;
     @Autowired
     private EmailService emailService;
 
     @PostMapping("/forgot_password")
-    public String processForgotPassword(HttpServletRequest request, Model model) {
+    public ResponseEntity<?> processForgotPassword(HttpServletRequest request) {
         String email = request.getParameter("email");
         String token = RandomString.make(30);
-
+        String resetPasswordLink ="";
         try {
             userService.updateResetPasswordToken(token, email);
-            String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+            resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             emailService.sendEmail(email, resetPasswordLink);
-            model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
 
-        } catch (ResourceNotFoundException ex) {
-            model.addAttribute("error", ex.getMessage());
-        } catch (UnsupportedEncodingException | MessagingException e) {
-            model.addAttribute("error", "Error while sending email");
+        } catch (ResourceNotFoundException | MessagingException | UnsupportedEncodingException ex) {
+            LOGGER.error("Error get token");
         }
 
-        return "forgot_password_form";
+        return ResponseEntity.ok().body(new CustomResponse(200, "Process Forgot Password Ok"
+                , resetPasswordLink));
     }
 
 
 
 
     @GetMapping("/reset_password")
-    public String showResetPasswordForm(@Param(value = "token") String token, Model model) {
+    public ResponseEntity<?> showResetPasswordForm(@Param(value = "token") String token) {
         UserEntity customer = userService.getByResetPasswordToken(token);
-        model.addAttribute("token", token);
 
         if (customer == null) {
-            model.addAttribute("message", "Invalid Token");
-            return "message";
+            return ResponseEntity.ok().body(new CustomResponse(200, "Request Confirm Order Ok"
+                    , "User token not found"));
         }
-
-        return "reset_password_form";
+        return ResponseEntity.ok().body(new CustomResponse(200, "Request Confirm Order Ok"
+                , customer));
     }
 
     @PostMapping("/reset_password")
-    public String processResetPassword(HttpServletRequest request, Model model) {
+    public ResponseEntity<?> processResetPassword(HttpServletRequest request) {
         String token = request.getParameter("token");
         String password = request.getParameter("password");
 
         UserEntity user = userService.getByResetPasswordToken(token);
-        model.addAttribute("title", "Reset your password");
 
         if (user == null) {
-            model.addAttribute("message", "Invalid Token");
-            return "message";
+            return ResponseEntity.ok().body(new CustomResponse(200, "Request Confirm Order Ok"
+                    , "Invalid Token"));
         } else {
-            userService.updatePassword(user, password);
 
-            model.addAttribute("message", "You have successfully changed your password.");
+            userService.updatePassword(user, password);
+            return ResponseEntity.ok().body(new CustomResponse(200, "You have successfully changed your password."
+                    , user));
         }
 
-        return "message";
     }
 }
